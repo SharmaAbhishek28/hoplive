@@ -2770,41 +2770,63 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
     .booking, .sec#properties, .sec#cities{ overflow-x: hidden; }
   }
 
-  /* HERO — flow with scatter first */
+  /* HERO — flow with scatter first, text centered to match the
+     centred polaroid cluster above it. */
   .hero{
     flex-direction: column;
     justify-content: flex-start;
     padding-top: calc(var(--nav-h) + 20px);
+    align-items: center;
+    text-align: center;
   }
-  .hero-eyebrow{ order: 2; margin-top: 28px; margin-bottom: 16px; }
-  .hero-headline{ order: 3; max-width: 100%; padding-right: 0; }
-  .hero-sub{ order: 4; }
-  .search-pill{ order: 5; }
+  .hero-eyebrow{
+    order: 2; margin-top: 28px; margin-bottom: 16px;
+    justify-content: center;
+  }
+  .hero-headline{
+    order: 3; max-width: 100%; padding-right: 0;
+    text-align: center;
+  }
+  .hero-sub{
+    order: 4;
+    margin-left: auto; margin-right: auto;
+    text-align: center;
+  }
+  .search-pill{ order: 5; align-self: stretch; }
   .scatter{
     order: 1;
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 1fr;
-    gap: 10px;
+    /* No forced rows / aspect — let polaroid content determine height
+       so the 4/5 image inside each card never overflows. */
+    gap: 12px;
     height: auto;
     inset: auto;
     pointer-events: auto;
     width: 100%;
-    aspect-ratio: 1/1;
-    max-height: 56vh;
+    max-width: 360px;
+    margin: 0 auto 8px;
+    aspect-ratio: auto;
   }
-  /* Make all polaroids behave as grid cells, ignoring absolute positions */
+  /* Polaroids size to their content (4/5 image + padding) — no forced
+     height: 100% so they don't try to fill a square cell. */
   .scatter .polaroid{
     position: relative !important;
     width: 100% !important;
-    height: 100%;
+    height: auto !important;
     top: auto !important; right: auto !important;
     bottom: auto !important; left: auto !important;
     transform: rotate(calc(var(--rot, 0deg) * 0.5)) !important;
-    padding: 8px 8px 24px;
+    padding: 6px 6px 18px;
   }
   .scatter .polaroid .ph{ aspect-ratio: 4/5; height: auto; }
+  .scatter .polaroid .tag{
+    font-size: 9px;
+    padding: 4px 8px;
+    bottom: 12px;
+    left: -8px;
+  }
   /* Force p4 visible — it's hidden by default for narrow desktop layouts */
   .p4{ display: block !important; }
 
@@ -2851,20 +2873,20 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   .bstep p{ font-size: 14px; line-height: 1.5; }
   .booking-cta{ margin-top: 32px; align-self: flex-start; }
 
-  /* CITIES GRID — horizontal scroll-snap strip */
+  /* CITIES GRID — horizontal scroll-snap strip with visible left pad */
   .cities-grid{
     display: flex;
     flex-direction: row;
     overflow-x: auto;
     overflow-y: visible;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 14px;
     margin-left: calc(-1 * var(--gutter));
     margin-right: calc(-1 * var(--gutter));
-    padding: 4px var(--gutter);
-    padding-right: 30%;
+    padding: 4px 30% 4px var(--gutter);
   }
   .cities-grid::-webkit-scrollbar{ display: none; }
   .cities-grid .city{
@@ -2872,6 +2894,10 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
     scroll-snap-align: start;
     aspect-ratio: 3/4;
   }
+  .cities-grid .city:first-child{ margin-left: 0; }
+
+  /* Same treatment for the booking-steps strip (was inconsistent) */
+  .booking-steps{ scroll-padding-left: var(--gutter); }
 }
 
 /* ============================================================

@@ -160,6 +160,29 @@
       });
     }
 
+    /* SEARCH SUBMIT — every .search-go button (hero pill + sticky FAB)
+       navigates to /properties so the filters page can pick up from here.
+       Until a real query builder is wired, this is the working CTA. */
+    document.querySelectorAll('.search-go').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'properties/';
+      });
+    });
+    /* Also let the whole hero pill act as one big click target — common
+       mobile pattern (the pill IS the search action). Tapping any segment
+       on mobile takes you straight to the filterable list. */
+    if (window.matchMedia('(max-width: 760px)').matches){
+      const heroPill = document.getElementById('searchPill');
+      if (heroPill){
+        heroPill.addEventListener('click', (e) => {
+          // Already handled if user tapped the actual button
+          if (e.target.closest('.search-go')) return;
+          window.location.href = 'properties/';
+        });
+      }
+    }
+
     // Polaroid scatter — float in with rotation preserved
     gsap.utils.toArray('.polaroid').forEach((el, i) => {
       gsap.from(el, {
