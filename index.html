@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FAFAF7" />
+<title>hoplive — hop in. you're home.</title>
+<meta name="description" content="Brand-grade PGs in Bangalore, Hyderabad, Gurgaon. All-in pricing. Hop in this week." />
+
+<!-- Fonts: Satoshi (display + body) + JetBrains Mono (mono labels) -->
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+<!-- Hoplive styles -->
+<link rel="stylesheet" href="styles.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<!-- ====================================================
+     ECLIPSE MARK — reusable SVG symbol library
+     ==================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Primary mark: coral disc 91% of mint, offset -12 from center.
+         Mint cx=50 r=50, Coral cx=38 r=45.5. Coral on top.
+         viewBox padded to -20..120 on both axes so the coral disc
+         never clips when offset left in any of the four states. -->
+    <symbol id="mark-primary" viewBox="-20 -20 140 140">
+      <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+      <circle cx="38" cy="50" r="45.5" fill="#FF3F3F"/>
+    </symbol>
+    <symbol id="mark-opening" viewBox="-20 -20 140 140">
+      <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+      <circle cx="28" cy="50" r="45.5" fill="#FF3F3F"/>
+    </symbol>
+    <symbol id="mark-aligned" viewBox="-20 -20 140 140">
+      <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+      <circle cx="50" cy="50" r="45.5" fill="#FF3F3F"/>
+    </symbol>
+    <symbol id="mark-closing" viewBox="-20 -20 140 140">
+      <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+      <circle cx="62" cy="50" r="45.5" fill="#FF3F3F"/>
+    </symbol>
+    <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </symbol>
+    <symbol id="ic-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="ic-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/>
+      <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+      <path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>
+    </symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.3-4.3"/>
+    </symbol>
+    <symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </symbol>
+    <symbol id="ic-user-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14"/>
+      <path d="m12 5 7 7-7 7"/>
+    </symbol>
+    <!-- Testimonial avatars — stylized silhouettes in brand palette.
+         Female: coral background, longer hair. Male: mint background, short hair.
+         Paper-fill face + shoulders read clearly on all 4 card themes. -->
+    <symbol id="av-f" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="50" fill="#FF3F3F"/>
+      <path d="M22 64 L22 52 Q22 22 50 22 Q78 22 78 52 L78 64 Q78 70 76 78 L76 70 Q72 66 66 66 L66 56 Q66 42 50 42 Q34 42 34 56 L34 66 Q28 66 24 70 L24 78 Q22 70 22 64 Z" fill="#0E0E10"/>
+      <ellipse cx="50" cy="52" rx="14" ry="16" fill="#FAFAF7"/>
+      <rect x="44" y="64" width="12" height="10" fill="#FAFAF7"/>
+      <path d="M24 100 L24 84 Q24 72 50 72 Q76 72 76 84 L76 100 Z" fill="#FAFAF7"/>
+    </symbol>
+    <symbol id="av-m" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+      <path d="M34 44 Q34 26 50 26 Q66 26 66 44 Q66 46 64 48 Q58 42 50 42 Q42 42 36 48 Q34 46 34 44 Z" fill="#0E0E10"/>
+      <ellipse cx="50" cy="50" rx="14" ry="16" fill="#FAFAF7"/>
+      <rect x="44" y="62" width="12" height="10" fill="#FAFAF7"/>
+      <path d="M24 100 L24 84 Q24 72 50 72 Q76 72 76 84 L76 100 Z" fill="#FAFAF7"/>
+    </symbol>
+    <symbol id="ic-wa" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ====================================================
+     NAV
+     ==================================================== -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="/">
+    <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+    <span class="wordmark">hop<span class="live">live</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="properties/">Properties</a>
+    <a href="cities/">Cities</a>
+    <a href="how/">How it works</a>
+    <a href="list-property/">List with us</a>
+  </div>
+  <div class="nav-cta">
+    <div class="nav-actions">
+      <a href="wishlist/" class="nav-icon nav-icon-wishlist" aria-label="Saved rooms">
+        <svg><use href="#ic-heart"/></svg>
+        <span class="badge" data-wishlist-count data-count="0">0</span>
+      </a>
+      <button class="nav-icon nav-icon-login" aria-label="Sign in" type="button">
+        <svg><use href="#ic-user-nav"/></svg>
+      </button>
+      <button class="nav-user-pill hidden" type="button">
+        <span class="avatar">H</span>
+        <span class="user-name">You</span>
+      </button>
+    </div>
+    <a href="book/" class="btn btn-primary">Book a room <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+  </div>
+</nav>
+
+<!-- User dropdown menu (visible when logged in pill is clicked) -->
+<div class="user-menu" id="userMenu" role="menu">
+  <div class="um-head">
+    <div class="um-name">Welcome</div>
+    <div class="um-email"></div>
+  </div>
+  <a href="wishlist/">♡ Saved rooms</a>
+  <a href="book/">Book a room</a>
+  <button class="um-signout" type="button">Sign out</button>
+</div>
+
+<!-- Auth modal (sign-in / sign-up) -->
+<div class="auth-modal" id="authModal" role="dialog" aria-modal="true" hidden>
+  <div class="auth-backdrop" id="authBackdrop"></div>
+  <div class="auth-card">
+    <button class="auth-close" id="authClose" aria-label="Close">×</button>
+    <h2>Welcome back.</h2>
+    <p class="auth-lead">Sign in to save rooms and pick up where you left off.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="signin" type="button">Sign in</button>
+      <button class="auth-tab" data-tab="signup" type="button">Create account</button>
+    </div>
+    <form class="auth-form" id="authForm" novalidate>
+      <label>
+        <span class="auth-label">Name</span>
+        <input type="text" name="name" placeholder="Your name" autocomplete="name" />
+      </label>
+      <label>
+        <span class="auth-label">Email</span>
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+      </label>
+      <label>
+        <span class="auth-label">Password</span>
+        <input type="password" name="password" placeholder="•••••••" autocomplete="current-password" />
+      </label>
+      <button type="submit">Sign in</button>
+    </form>
+    <div class="auth-divider">or</div>
+    <button class="auth-google" id="authGoogle" type="button">Continue with Google</button>
+    <p class="auth-foot">Frontend demo · backend wires up later.</p>
+  </div>
+</div>
+
+<!-- ====================================================
+     SECTION B — HERO
+     ==================================================== -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="pulse-dot"></span>
+    <span class="mono">Live in Bangalore · Hyderabad · Gurgaon</span>
+  </div>
+  <h1 class="display-xl hero-headline" data-split>
+    hop in.<br/>you're <span class="spike">home.</span>
+  </h1>
+  <p class="lead hero-sub">Brand-grade PGs. All-in pricing. Hop in this week.</p>
+
+  <div class="search-pill" id="searchPill" role="search" aria-label="Find a room">
+    <div class="search-seg">
+      <span class="lbl">Where</span>
+      <span class="val"><svg class="ico"><use href="#ic-pin"/></svg> Bangalore</span>
+    </div>
+    <div class="search-seg">
+      <span class="lbl">Who</span>
+      <span class="val"><svg class="ico"><use href="#ic-people"/></svg> solo</span>
+    </div>
+    <div class="search-seg">
+      <span class="lbl">Budget</span>
+      <span class="val"><svg class="ico"><use href="#ic-wallet"/></svg> Under ₹15k</span>
+    </div>
+    <button class="search-go" aria-label="Search"><svg><use href="#ic-search"/></svg></button>
+  </div>
+
+  <!-- Image scatter — these translate into property cards on scroll -->
+  <!-- PROTOTYPE: Pexels stock. Replace with Hoplive documentary photography before launch. -->
+  <div class="scatter" aria-hidden="true">
+    <div class="polaroid p1" data-scatter="0">
+      <div class="ph" data-photo="→ HSR Layout · resident: Aditi">
+        <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="eager" />
+      </div>
+      <span class="tag">→ HSR Layout</span>
+    </div>
+    <div class="polaroid p2 alt dark" data-scatter="1">
+      <div class="ph" data-photo="→ kitchen · 7am · two pans">
+        <img src="https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="eager" />
+      </div>
+      <span class="tag">→ resident: Aditi</span>
+    </div>
+    <div class="polaroid p3" data-scatter="2">
+      <div class="ph" data-photo="→ Koramangala common room">
+        <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="eager" />
+      </div>
+      <span class="tag">→ 100 Mbps</span>
+    </div>
+    <div class="polaroid p4 dark" data-scatter="3">
+      <div class="ph" data-photo="→ door key handover · hop-in day">
+        <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="eager" />
+      </div>
+      <span class="tag">→ Bangalore</span>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky search FAB — appears after hero -->
+<div class="search-fab" id="searchFab" role="search" aria-label="Find a room">
+  <div class="fab-segs">
+    <span><svg width="14" height="14" style="vertical-align:-2px"><use href="#ic-pin"/></svg> Bangalore</span>
+    <span class="fab-sep"></span>
+    <span><svg width="14" height="14" style="vertical-align:-2px"><use href="#ic-people"/></svg> solo</span>
+    <span class="fab-sep"></span>
+    <span><svg width="14" height="14" style="vertical-align:-2px"><use href="#ic-wallet"/></svg> Under ₹15k</span>
+  </div>
+  <button class="search-go" aria-label="Search"><svg><use href="#ic-search"/></svg></button>
+</div>
+
+<!-- ====================================================
+     SECTION C — STATS
+     ==================================================== -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="num"><span class="count" data-target="42">0</span><span class="dot">.</span></div>
+      <div class="lbl">properties live across three cities</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span class="count" data-target="3">0</span><span class="dot">.</span></div>
+      <div class="lbl">cities. four more by end of year</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span class="count" data-target="0">0</span><span class="dot">.</span></div>
+      <div class="lbl">hidden charges. all-in pricing means all-in</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span class="count" data-target="87">0</span><span class="suffix">%</span><span class="dot">.</span></div>
+      <div class="lbl">of residents say they'd refer a friend</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION D — FEATURED PROPERTIES
+     ==================================================== -->
+<section class="sec" id="properties">
+  <div class="props-head">
+    <div>
+      <div class="sec-eyebrow">Featured rooms</div>
+      <h2 class="sec-title" data-split>Pick a room. <span class="spike">Hop in this week.</span></h2>
+    </div>
+    <div class="filters">
+      <button class="chip active">Trending</button>
+      <button class="chip">Near tech parks</button>
+      <button class="chip">Solo</button>
+      <button class="chip">Twin</button>
+      <button class="chip">Hop-in this week</button>
+      <button class="chip">Under ₹16k</button>
+      <button class="chip">Premium hops</button>
+      <button class="chip">Pet-friendly</button>
+    </div>
+  </div>
+
+  <div class="props-row" id="propsRow" tabindex="0" role="list">
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">3 beds left</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive Koramangala</h3><span class="star">★ 4.9</span></div>
+        <div class="meta">Bangalore · 7 mins to Forum · 12 to office</div>
+        <div class="price">
+          <span class="val">₹14,500</span>
+          <span class="qual">/mo, twin · all-in</span>
+        </div>
+      </div>
+    </a>
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">5 beds left</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive HSR Layout</h3><span class="star">★ 4.8</span></div>
+        <div class="meta">Bangalore · 4 mins to ORR · pet-friendly</div>
+        <div class="price">
+          <span class="val">₹13,800</span>
+          <span class="qual">/mo, twin · all-in</span>
+        </div>
+      </div>
+    </a>
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">2 beds left</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive Madhapur</h3><span class="star">★ 4.9</span></div>
+        <div class="meta">Hyderabad · 3 mins to HITEC City</div>
+        <div class="price">
+          <span class="val">₹15,200</span>
+          <span class="qual">/mo, solo · all-in</span>
+        </div>
+      </div>
+    </a>
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">7 beds left</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive Sector 49</h3><span class="star">★ 4.7</span></div>
+        <div class="meta">Gurgaon · 8 mins to Cyber Hub</div>
+        <div class="price">
+          <span class="val">₹14,200</span>
+          <span class="qual">/mo, twin · all-in</span>
+        </div>
+      </div>
+    </a>
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">opening 12 May</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive Indiranagar</h3><span class="star">new</span></div>
+        <div class="meta">Bangalore · 100m to metro</div>
+        <div class="price">
+          <span class="val">₹15,800</span>
+          <span class="qual">/mo, twin · all-in</span>
+        </div>
+      </div>
+    </a>
+    <a class="pcard" href="property/" role="listitem">
+      <div class="img">
+        <div class="img-ph">
+          <img src="https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+          <span class="cap"></span>
+        </div>
+        <span class="live">4 beds left</span>
+        <button class="heart" aria-label="Save" onclick="event.preventDefault();event.stopPropagation();"><svg><use href="#ic-heart"/></svg></button>
+        <span class="view">View property →</span>
+      </div>
+      <div class="body">
+        <div class="title-row"><h3>hoplive Gachibowli</h3><span class="star">★ 4.8</span></div>
+        <div class="meta">Hyderabad · near IIIT campus</div>
+        <div class="price">
+          <span class="val">₹13,500</span>
+          <span class="qual">/mo, twin · all-in</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION E — BENTO
+     ==================================================== -->
+<section class="sec" id="standard">
+  <div class="bento-head">
+    <div class="sec-eyebrow">What you get</div>
+    <h2 class="sec-title" data-split>Everything that should be standard. <span class="spike">Actually is.</span></h2>
+    <p class="lead sec-lead">Every room. Every property. Every city. Same standard.<br/>That's the whole brand.</p>
+  </div>
+
+  <div class="bento">
+    <div class="tile t-paper t1" data-image-bg="→ documentary photo: resident's room, warm afternoon light">
+      <span class="tile-bg" style="background-image:url('https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000')"></span>
+      <span class="label">→ the room</span>
+      <h4>Your room.<br/>Big city.</h4>
+    </div>
+    <div class="tile t-coral t2">
+      <span class="label">→ Wi-Fi</span>
+      <h4 style="font-size:clamp(36px,4vw,56px)">100 Mbps.</h4>
+    </div>
+    <div class="tile t-ink t3">
+      <span class="label">→ all bills</span>
+      <h4 style="font-size:clamp(20px,2vw,26px); line-height:1.15">Housekeeping. Laundry. All bills.</h4>
+    </div>
+    <div class="tile t-mint t4" data-image-bg="→ documentary photo: kitchen with two pans, morning prep">
+      <span class="tile-bg" style="background-image:url('https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000')"></span>
+      <span class="label">→ pricing</span>
+      <h4>₹14k.<br/><span style="font-family:var(--body); font-weight:500; font-size:.18em; letter-spacing:0;">twin · all-in · no surprises</span></h4>
+    </div>
+    <div class="tile t-paper t5">
+      <span class="label">→ meals</span>
+      <h4 style="font-size:clamp(28px,3vw,40px)">2 daily.<br/>3 weekends.<br/><span class="spike">Done.</span></h4>
+    </div>
+    <div class="tile t-paper t6">
+      <span class="label">→ lock-in</span>
+      <h4 style="font-size:clamp(20px,2vw,26px); line-height:1.2">3 months.<br/>Flexible if life happens.</h4>
+    </div>
+    <div class="tile t-ink t7" data-image-bg="→ documentary photo: manager at desk with WhatsApp open">
+      <span class="tile-bg" style="background-image:url('https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000')"></span>
+      <span class="label">→ support</span>
+      <h4 style="font-size:clamp(28px,3vw,40px); line-height:1.05">Real human.<br/>Real WhatsApp.</h4>
+    </div>
+    <div class="tile t-coral t8">
+      <span class="label">→ booking</span>
+      <h4 style="font-size:clamp(28px,3vw,40px); line-height:1.05">Book online.<br/>Hop in this week. <em style="font-style:normal">That's it.</em></h4>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION F — BOOKING FLOW (sticky scroll, 4 mark states)
+     ==================================================== -->
+<section class="booking sec" id="howItWorks">
+  <div class="booking-wrap">
+    <div class="booking-left">
+      <div class="sec-eyebrow">How to hop</div>
+      <h2 class="sec-title" data-split>Four steps. <span class="spike">No drama.</span></h2>
+
+      <div class="booking-steps">
+        <div class="bstep" data-step="1" data-state="opening">
+          <div class="num">step 01</div>
+          <h3>Browse a few. Save the ones you like.</h3>
+          <p>Filter by city, locality, room type, budget. See real beds, real bed counts, real photos. Ours, not stock.</p>
+        </div>
+        <div class="bstep" data-step="2" data-state="primary">
+          <div class="num">step 02</div>
+          <h3>Pick your room. Solo or twin.</h3>
+          <p>Pick a property, pick a room type, pick a hop-in date. Live availability, updated by the manager you'll meet on day one.</p>
+        </div>
+        <div class="bstep" data-step="3" data-state="aligned">
+          <div class="num">step 03</div>
+          <h3>Lock it with ₹2,000.</h3>
+          <p>Token only. Refundable. Pay on UPI or card. KYC happens online — no chasing photocopies.</p>
+        </div>
+        <div class="bstep" data-step="4" data-state="closing">
+          <div class="num">step 04</div>
+          <h3>Hop in. Door open.</h3>
+          <p>Manager hands you a kit, a key, a kettle. WhatsApp number on the wall. You're sorted.</p>
+        </div>
+      </div>
+
+      <a href="book/" class="btn btn-coral booking-cta">Start booking <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    </div>
+
+    <div class="booking-right">
+      <div class="booking-mark">
+        <svg id="bookingMark" viewBox="-20 -20 140 140" aria-hidden="true">
+          <circle cx="50" cy="50" r="50" fill="#1FCB8B"/>
+          <circle id="bookingCoral" cx="28" cy="50" r="45.5" fill="#FF3F3F"/>
+        </svg>
+      </div>
+      <div class="booking-state" id="bookingStateLabel">opening · browse</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION G — CITY MARQUEE + GRID
+     ==================================================== -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Bangalore <span class="dot">●</span></span>
+    <span class="marquee-item outline">Hyderabad</span>
+    <span class="marquee-item">Gurgaon <span class="dot">●</span></span>
+    <span class="marquee-item outline">Pune soon</span>
+    <span class="marquee-item">Lucknow soon <span class="dot">●</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Bangalore <span class="dot">●</span></span>
+    <span class="marquee-item outline">Hyderabad</span>
+    <span class="marquee-item">Gurgaon <span class="dot">●</span></span>
+    <span class="marquee-item outline">Pune soon</span>
+    <span class="marquee-item">Lucknow soon <span class="dot">●</span></span>
+  </div>
+</div>
+
+<section class="sec" id="cities">
+  <div class="sec-eyebrow">Where we live</div>
+  <h2 class="sec-title" data-split>Three cities. <span class="spike">More on the way.</span></h2>
+
+  <div class="cities-grid">
+    <a href="cities/" class="city bangalore">
+      <div class="ph" data-photo="→ Bangalore · MG Road at golden hour">
+        <img src="cities/Bangaluru%20Hoplive.jpg" alt="Bangalore" loading="lazy" onerror="this.closest('.city').classList.add('no-img'); this.style.display='none';" />
+      </div>
+      <div class="gradient"></div>
+      <div class="body">
+        <div>
+          <h4>Bangalore.</h4>
+          <div class="meta">12 properties · 480 beds · ★ 4.85</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16"><use href="#ic-arrow"/></svg></span>
+      </div>
+    </a>
+    <a href="cities/" class="city">
+      <div class="ph" data-photo="→ Hyderabad · Char Minar from a rooftop">
+        <img src="cities/charminar%20Hoplive.png" alt="Hyderabad" loading="lazy" onerror="this.closest('.city').classList.add('no-img'); this.style.display='none';" />
+      </div>
+      <div class="gradient"></div>
+      <div class="body">
+        <div>
+          <h4>Hyderabad.</h4>
+          <div class="meta">6 properties · 220 beds</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16"><use href="#ic-arrow"/></svg></span>
+      </div>
+    </a>
+    <a href="cities/" class="city">
+      <div class="ph" data-photo="→ Gurgaon · Cyber Hub at 8pm">
+        <img src="cities/gurgaon-Hoplive.png" alt="Gurgaon" loading="lazy" onerror="this.closest('.city').classList.add('no-img'); this.style.display='none';" />
+      </div>
+      <div class="gradient"></div>
+      <div class="body">
+        <div>
+          <h4>Gurgaon.</h4>
+          <div class="meta">4 properties · 160 beds</div>
+        </div>
+        <span class="arrow"><svg width="16" height="16"><use href="#ic-arrow"/></svg></span>
+      </div>
+    </a>
+    <div class="city coming">
+      <div class="ph" data-photo="→ Pune · opening Q3">
+        <img src="cities/Pune%20Hoplive.jpg" alt="Pune" loading="lazy" onerror="this.closest('.city').classList.add('no-img'); this.style.display='none';" />
+      </div>
+      <div class="gradient"></div>
+      <div class="body">
+        <div>
+          <h4>Pune.</h4>
+          <div class="meta" style="color: var(--mint); opacity:.85;">opening Q3 2026</div>
+        </div>
+      </div>
+    </div>
+    <div class="city coming">
+      <div class="ph" data-photo="→ Lucknow · opening Q4">
+        <img src="cities/Lucknow-Uttar-Pradesh-%20Hoplive.avif" alt="Lucknow" loading="lazy" onerror="this.closest('.city').classList.add('no-img'); this.style.display='none';" />
+      </div>
+      <div class="gradient"></div>
+      <div class="body">
+        <div>
+          <h4>Lucknow.</h4>
+          <div class="meta" style="color: var(--mint); opacity:.85;">opening Q4 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION H — CONVENIENCE
+     ==================================================== -->
+<section class="sec">
+  <div class="conv-wrap">
+    <div class="collage" aria-hidden="true">
+      <div class="frame f1" data-photo="→ documentary: resident's room · warm afternoon light">
+        <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="frame f2" data-photo="→ documentary: manager at desk · WhatsApp open">
+        <img src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="frame f3" data-photo="→ documentary: kettle on a stove · 7am">
+        <img src="https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="frame f4" data-photo="→ documentary: a key in a door · hop-in day">
+        <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <span class="floater fl1">Verified manager</span>
+      <span class="floater fl2">5-min WhatsApp reply</span>
+      <span class="floater fl3">Token-only booking</span>
+    </div>
+    <div>
+      <div class="sec-eyebrow">Why hoplive</div>
+      <h2 class="sec-title" data-split>At your <span class="spike">convenience.</span></h2>
+      <p class="lead sec-lead">From the search bar to the front door, every step is built to feel like one decision, not ten.</p>
+
+      <div class="conv-cards">
+        <div class="conv-card">
+          <span class="n">01</span>
+          <div>
+            <h5>Complete digital living.</h5>
+            <p>KYC to check-in, fully online. Document scan, e-sign, room ready. Walk in with a kettle and a backpack.</p>
+          </div>
+        </div>
+        <div class="conv-card">
+          <span class="n">02</span>
+          <div>
+            <h5>Hassle-free payments.</h5>
+            <p>Razorpay rails. UPI, card, netbanking. Auto-receipts in your inbox. Refunds processed in 72 hours, every time.</p>
+          </div>
+        </div>
+        <div class="conv-card">
+          <span class="n">03</span>
+          <div>
+            <h5>Smart support, faster fixes.</h5>
+            <p>Real manager on WhatsApp. AI chat as backup. Five-minute first reply. No tickets, no queues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION I — TESTIMONIALS (dual-row carousel)
+     ==================================================== -->
+<section class="testi" id="testimonials">
+  <div class="testi-head">
+    <div class="sec-eyebrow">Voices from inside</div>
+    <h2 class="sec-title" data-split>loud. honest. <span class="spike">present.</span></h2>
+    <p class="lead sec-lead">Real reviews from real residents. Pulled from our in-app rating system. No paid placements. Just truth.</p>
+  </div>
+
+  <div class="testi-row r1">
+    <div class="testi-card paper">
+      <span class="quote">"</span>
+      <p>Wi-Fi held up through three back-to-back zooms. That's the whole job.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Aditi K.</div><div class="role">Solo · Koramangala</div></div></div>
+    </div>
+    <div class="testi-card ink">
+      <span class="quote">"</span>
+      <p>Moved in on a Tuesday. Manager texted me Sunday to ask if the bedsheet was the right size. Done right.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Rohan M.</div><div class="role">Twin · HSR Layout</div></div></div>
+    </div>
+    <div class="testi-card coral">
+      <span class="quote">"</span>
+      <p>All-in pricing means I stopped flinching every time I checked my bank app.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Karthik R.</div><div class="role">Solo · Madhapur</div></div></div>
+    </div>
+    <div class="testi-card mint">
+      <span class="quote">"</span>
+      <p>The room is small. I knew that. The common kitchen is where I actually live.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Niharika S.</div><div class="role">Twin · Sector 49</div></div></div>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="testi-card paper" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>Wi-Fi held up through three back-to-back zooms. That's the whole job.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Aditi K.</div><div class="role">Solo · Koramangala</div></div></div>
+    </div>
+    <div class="testi-card ink" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>Moved in on a Tuesday. Manager texted me Sunday to ask if the bedsheet was the right size. Done right.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Rohan M.</div><div class="role">Twin · HSR Layout</div></div></div>
+    </div>
+    <div class="testi-card coral" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>All-in pricing means I stopped flinching every time I checked my bank app.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Karthik R.</div><div class="role">Solo · Madhapur</div></div></div>
+    </div>
+    <div class="testi-card mint" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>The room is small. I knew that. The common kitchen is where I actually live.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Niharika S.</div><div class="role">Twin · Sector 49</div></div></div>
+    </div>
+  </div>
+
+  <div class="testi-row r2">
+    <div class="testi-card ink">
+      <span class="quote">"</span>
+      <p>I asked to move floors and they sorted it in two days. No paperwork, just a WhatsApp.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Diya P.</div><div class="role">Solo · Indiranagar</div></div></div>
+    </div>
+    <div class="testi-card paper">
+      <span class="quote">"</span>
+      <p>The food is just food. But it's there at 9pm when I get back. That counts.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Tanvi B.</div><div class="role">Twin · Gachibowli</div></div></div>
+    </div>
+    <div class="testi-card mint">
+      <span class="quote">"</span>
+      <p>First place where I didn't have to teach the manager what RTGS is.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Yash D.</div><div class="role">Solo · Sector 49</div></div></div>
+    </div>
+    <div class="testi-card coral">
+      <span class="quote">"</span>
+      <p>Booked on a Monday, slept here on a Friday. Whole thing was a single thread.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Megha L.</div><div class="role">Twin · HSR Layout</div></div></div>
+    </div>
+    <!-- duplicate -->
+    <div class="testi-card ink" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>I asked to move floors and they sorted it in two days. No paperwork, just a WhatsApp.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Diya P.</div><div class="role">Solo · Indiranagar</div></div></div>
+    </div>
+    <div class="testi-card paper" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>The food is just food. But it's there at 9pm when I get back. That counts.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Tanvi B.</div><div class="role">Twin · Gachibowli</div></div></div>
+    </div>
+    <div class="testi-card mint" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>First place where I didn't have to teach the manager what RTGS is.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-m"/></svg></span><div><div class="name">Yash D.</div><div class="role">Solo · Sector 49</div></div></div>
+    </div>
+    <div class="testi-card coral" aria-hidden="true">
+      <span class="quote">"</span>
+      <p>Booked on a Monday, slept here on a Friday. Whole thing was a single thread.</p>
+      <span class="div"></span>
+      <div class="who"><span class="av"><svg><use href="#av-f"/></svg></span><div><div class="name">Megha L.</div><div class="role">Twin · HSR Layout</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION J — B2B
+     ==================================================== -->
+<section class="b2b sec">
+  <div class="b2b-wrap">
+    <div>
+      <div class="sec-eyebrow">For owners</div>
+      <h2 data-split>Got the building. <span class="accent">We've got the brand.</span></h2>
+      <p>Operator-partner model. You bring the property, we bring the product, the residents, and the front door. Single dashboard, monthly settlement, manager on payroll.</p>
+      <a href="list-property/" class="btn btn-coral">List your property <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    </div>
+    <div class="b2b-grid">
+      <div class="b2b-stat">
+        <div class="lbl">Avg. occupancy</div>
+        <div class="val">87%</div>
+      </div>
+      <div class="b2b-stat">
+        <div class="lbl">Time to first booking</div>
+        <div class="val">14d</div>
+      </div>
+      <div class="b2b-stat">
+        <div class="lbl">Setup cost to owner</div>
+        <div class="val">₹0</div>
+      </div>
+      <div class="b2b-stat">
+        <div class="lbl">Manager onsite</div>
+        <div class="val">100%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION K — FINAL CTA
+     ==================================================== -->
+<section class="final">
+  <h2 data-split>hop. <span style="color: var(--ink)">you're home.</span></h2>
+  <p>Pick a city. Pick a room. Hop in this week. That's the whole product.</p>
+  <div class="ctas">
+    <a href="book/" class="btn btn-paper">Book a room <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    <a href="properties/" class="btn btn-paper-outline">Browse all rooms</a>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION L — FOOTER
+     ==================================================== -->
+<svg class="foot-bounce" viewBox="0 0 2278 683" preserveAspectRatio="none" aria-hidden="true">
+  <path id="bouncy-path" d="M0-0.3C0-0.3,464,0,1139,0S2278-0.3,2278-0.3V683H0V-0.3z"/>
+</svg>
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="word" href="/" aria-label="hoplive — go to home">
+        <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+        <span class="wordmark" style="color: var(--paper)">hop<span class="live">live</span></span>
+      </a>
+      <p class="tag">Brand-grade PGs for the people building the cities they live in. A sub-brand of Housr.</p>
+    </div>
+    <div class="foot-col">
+      <h6>Discover</h6>
+      <ul>
+        <li><a href="properties/">All properties</a></li>
+        <li><a href="cities/">Cities</a></li>
+        <li><a href="how/">How it works</a></li>
+        <li><a href="/journal">Journal</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Hoplive</h6>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="list-property/">List your property</a></li>
+        <li><a href="/refer">Refer & earn</a></li>
+        <li><a href="/press">Press</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Company</h6>
+      <ul>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/careers">Careers</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-strip">
+    <span>© 2026 hoplive · A sub-brand of Housr</span>
+    <span>WhatsApp · +91 XXXXX XXXXX · hello@hoplive.in</span>
+  </div>
+</footer>
+
+<!-- ====================================================
+     INTENT MODAL — first-visit journey picker
+     Two routes: book a room / list a property
+     Shown once per session via sessionStorage.
+     ==================================================== -->
+<div class="intent-modal" id="intentModal" role="dialog" aria-modal="true" aria-labelledby="intentTitle" hidden>
+  <div class="intent-backdrop" id="intentBackdrop"></div>
+  <div class="intent-card">
+    <button class="intent-close" id="intentClose" aria-label="Close">×</button>
+    <div class="sec-eyebrow">Welcome to hoplive</div>
+    <h2 id="intentTitle">I'm interested in <span class="spike">...</span></h2>
+
+    <div class="intent-options">
+      <a class="intent-opt intent-opt--room" href="properties/" data-intent="room">
+        <div class="intent-opt-img">
+          <span class="intent-opt-tag">Resident</span>
+          <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+        </div>
+        <div class="intent-opt-body">
+          <h3>Finding my room.</h3>
+          <p>Solo or twin. Bangalore, Hyderabad, Gurgaon. All-in pricing, hop in this week.</p>
+          <span class="intent-opt-arrow">Browse rooms →</span>
+        </div>
+      </a>
+
+      <a class="intent-opt intent-opt--listing" href="list-property/" data-intent="listing">
+        <div class="intent-opt-img">
+          <span class="intent-opt-tag">Operator</span>
+          <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+        </div>
+        <div class="intent-opt-body">
+          <h3>Listing my property.</h3>
+          <p>Operator-partner model. ₹1–3L extra per month. ₹0 upfront. No lock-in.</p>
+          <span class="intent-opt-arrow">Partner with us →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const modal = document.getElementById('intentModal');
+  if (!modal) return;
+
+  const open = () => {
+    modal.hidden = false;
+    void modal.offsetWidth; // force reflow so the transition runs
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    setTimeout(() => {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+    }, 350);
+  };
+
+  // Show on every homepage load (incl. refresh) — no session gating.
+  setTimeout(open, 900);
+
+  document.getElementById('intentClose').addEventListener('click', close);
+  document.getElementById('intentBackdrop').addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) close();
+  });
+  // Option clicks let navigation proceed naturally — no extra wiring needed.
+})();
+</script>
+
+<!-- WhatsApp FAB (bottom-left) -->
+<a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20asking%20about%20hoplive" class="wa-fab" aria-label="WhatsApp us">
+  <svg><use href="#ic-wa"/></svg>
+</a>
+
+<!-- ====================================================
+     LIBS — Lenis + GSAP (CDN), then Hoplive script
+     ==================================================== -->
+<script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FAFAF7" />
+<title>hoplive Koramangala — Solo & twin PG in Koramangala, Bangalore</title>
+<meta name="description" content="42 beds, 3 floors, since 2026. 7 mins to Forum. All-in pricing from ₹14,500/mo. Book online with ₹2,000 token, hop in this week." />
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../styles.css" />
+
+<!-- Property-detail page overrides: airbnb-style gallery, tighter type, mobile polish -->
+<style>
+  /* GALLERY — tighter, capped height, single rounded outer corners */
+  .gallery{
+    aspect-ratio: auto;
+    max-height: 480px;
+    height: clamp(280px, 48vw, 480px);
+    gap: 6px;
+  }
+  .gallery .g-frame{ border-radius: 0; }
+  .gallery .g-frame:first-child{ border-top-left-radius: 14px; border-bottom-left-radius: 14px; }
+  .gallery .g-frame:nth-child(3){ border-top-right-radius: 14px; }
+  .gallery .g-frame:nth-child(5){ border-bottom-right-radius: 14px; }
+  @media (max-width: 760px){
+    .gallery{
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      height: clamp(260px, 75vw, 380px);
+      max-height: 380px;
+      gap: 4px;
+    }
+    .gallery .g-frame{ border-radius: 0; }
+    .gallery .g-frame:first-child{
+      grid-column: span 2;
+      grid-row: auto;
+      border-radius: 12px 12px 0 0;
+    }
+    .gallery .g-frame:nth-child(2){ border-bottom-left-radius: 12px; }
+    .gallery .g-frame:nth-child(3){ border-bottom-right-radius: 12px; }
+    .gallery .g-frame:nth-child(4),
+    .gallery .g-frame:nth-child(5){ display: none; }
+  }
+
+  /* HEAD — reduce top padding, tighten title */
+  .prop-head{ padding: calc(var(--nav-h) + 72px) var(--gutter) 20px; }
+  .prop-head .crumb{ margin-top: 8px; }
+  .prop-title h1{
+    font-size: clamp(32px, 4.6vw, 56px);
+    line-height: .98;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+  }
+  .prop-title .heart{ width: 40px !important; height: 40px !important; top: 6px !important; }
+  .prop-meta{ gap: 14px; font-size: 13px; }
+
+  /* MAIN — tighter section type so it reads like a detail page, not a hero */
+  .prop-body{ padding: 48px var(--gutter); gap: clamp(32px, 5vw, 56px); }
+  .prop-main h2{
+    font-size: clamp(26px, 3.2vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .prop-main h2 + p{ margin-top: 14px; font-size: 15px; line-height: 1.55; }
+  .prop-main h3{
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-top: 44px;
+  }
+
+  /* ROOM CARDS — more compact */
+  .room-card{ padding: 18px; }
+  .room-card h4{ font-size: 18px; margin-top: 6px; }
+  .room-card .price{ font-size: 18px; margin-top: 10px; }
+  .room-card .price small{ font-size: 11px; }
+
+  /* FEATURES + HOUSE RULES — modest sizes */
+  .feat{ font-size: 13.5px; }
+  .house-rules{ padding: 20px; margin-top: 24px; }
+  .house-rules h4{ font-size: 16px; }
+  .house-rules p{ font-size: 13.5px !important; line-height: 1.55 !important; }
+
+  /* STICKY ASIDE — Airbnb-style booking card */
+  .prop-aside{ padding: 22px; border-radius: 14px; gap: 14px; }
+  .prop-aside .price-block .v{ font-size: 24px; }
+  .prop-aside .price-block .q{ font-size: 13px; }
+  .prop-aside .all-in{ font-size: 12px; }
+  .prop-aside .perks{ font-size: 12.5px; }
+  .prop-aside .roundel .r-text{ font-size: 9.5px; }
+  .field label{ font-size: 11px; }
+
+  /* SECTION TITLES on this page only (Location, More from the property, final) */
+  .prop-body ~ .sec .sec-title,
+  .prop-body ~ .final h2{
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+  .prop-body ~ .final h2{ margin-inline: auto; text-align: center; }
+  .prop-body ~ .sec{ padding: 48px var(--gutter); }
+  .prop-body ~ .sec .sec-lead{ margin-top: 14px; font-size: 14px; }
+  .prop-body ~ .final{ padding: clamp(56px, 9vw, 120px) var(--gutter); }
+  .prop-body ~ .final p{ font-size: 15px; }
+
+  /* MAP — shorter on mobile */
+  .map-wrap{ aspect-ratio: 16/9; max-height: 420px; }
+  @media (max-width: 540px){ .map-wrap{ aspect-ratio: 4/3; max-height: 320px; } }
+
+  /* COMMON SPACES GRID — responsive override for the inline-styled grid */
+  .common-spaces{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .common-spaces > div{
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .common-spaces img{ width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 760px){ .common-spaces{ grid-template-columns: 1fr 1fr; gap: 8px; } }
+  @media (max-width: 420px){ .common-spaces{ grid-template-columns: 1fr 1fr; } }
+
+  /* PROP-BODY mobile padding */
+  @media (max-width: 900px){
+    .prop-body{ padding: 32px var(--gutter); gap: 28px; }
+    .prop-aside{ padding: 18px; }
+  }
+  @media (max-width: 540px){
+    .prop-head{ padding: calc(var(--nav-h) + 40px) var(--gutter) 16px; }
+    .prop-title{ flex-direction: column; gap: 12px; align-items: flex-start; }
+    .prop-meta{ gap: 10px; font-size: 12.5px; }
+    .prop-body ~ .sec{ padding: 36px var(--gutter); }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark-primary" viewBox="-20 -20 140 140"><circle cx="50" cy="50" r="50" fill="#1FCB8B"/><circle cx="38" cy="50" r="45.5" fill="#FF3F3F"/></symbol>
+    <symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="ic-user-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="ic-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="../">
+    <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+    <span class="wordmark">hop<span class="live">live</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="../properties/">Properties</a>
+    <a href="../cities/">Cities</a>
+    <a href="../how/">How it works</a>
+    <a href="../list-property/">List with us</a>
+  </div>
+  <div class="nav-cta">
+    <div class="nav-actions">
+      <a href="../wishlist/" class="nav-icon nav-icon-wishlist" aria-label="Saved rooms">
+        <svg><use href="#ic-heart"/></svg>
+        <span class="badge" data-wishlist-count data-count="0">0</span>
+      </a>
+      <button class="nav-icon nav-icon-login" aria-label="Sign in" type="button">
+        <svg><use href="#ic-user-nav"/></svg>
+      </button>
+      <button class="nav-user-pill hidden" type="button">
+        <span class="avatar">H</span>
+        <span class="user-name">You</span>
+      </button>
+    </div>
+    <a href="../book/" class="btn btn-primary">Book a room <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+  </div>
+</nav>
+
+<div class="user-menu" id="userMenu" role="menu">
+  <div class="um-head">
+    <div class="um-name">Welcome</div>
+    <div class="um-email"></div>
+  </div>
+  <a href="../wishlist/">♡ Saved rooms</a>
+  <a href="../book/">Book a room</a>
+  <button class="um-signout" type="button">Sign out</button>
+</div>
+
+<div class="auth-modal" id="authModal" role="dialog" aria-modal="true" hidden>
+  <div class="auth-backdrop" id="authBackdrop"></div>
+  <div class="auth-card">
+    <button class="auth-close" id="authClose" aria-label="Close">×</button>
+    <h2>Welcome back.</h2>
+    <p class="auth-lead">Sign in to save rooms and pick up where you left off.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="signin" type="button">Sign in</button>
+      <button class="auth-tab" data-tab="signup" type="button">Create account</button>
+    </div>
+    <form class="auth-form" id="authForm" novalidate>
+      <label><span class="auth-label">Name</span><input type="text" name="name" placeholder="Your name" autocomplete="name" /></label>
+      <label><span class="auth-label">Email</span><input type="email" name="email" placeholder="you@example.com" required autocomplete="email" /></label>
+      <label><span class="auth-label">Password</span><input type="password" name="password" placeholder="•••••••" autocomplete="current-password" /></label>
+      <button type="submit">Sign in</button>
+    </form>
+    <div class="auth-divider">or</div>
+    <button class="auth-google" id="authGoogle" type="button">Continue with Google</button>
+    <p class="auth-foot">Frontend demo · backend wires up later.</p>
+  </div>
+</div>
+
+<section class="prop-head">
+  <div class="crumb" style="display: flex; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--muted); text-transform: uppercase;">
+    <a href="../properties/" style="color: var(--muted);">All properties</a><span style="opacity: .4;">›</span>
+    <a href="../cities/" style="color: var(--muted);">Bangalore</a><span style="opacity: .4;">›</span>
+    <span>Koramangala</span>
+  </div>
+
+  <div class="prop-title">
+    <h1 data-split>hoplive <span class="spike">Koramangala.</span></h1>
+    <button class="heart" aria-label="Save" style="position: relative; top: 8px; right: auto; width: 48px; height: 48px; background: var(--paper); border: 1px solid var(--ink); border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="20" height="20"><use href="#ic-heart"/></svg></button>
+  </div>
+
+  <div class="prop-meta">
+    <span class="live-tag">● 3 beds left</span>
+    <span>Koramangala 5th Block, Bangalore</span>
+    <span>★ 4.9 (124)</span>
+    <span>42 beds · 3 floors · since 2026</span>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="g-frame"><img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="" loading="lazy" /></div>
+  <div class="g-frame"><img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" /></div>
+  <div class="g-frame"><img src="https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" /></div>
+  <div class="g-frame"><img src="https://images.pexels.com/photos/1599791/pexels-photo-1599791.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" /></div>
+  <div class="g-frame"><img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" /></div>
+</div>
+
+<!-- BODY -->
+<section class="prop-body">
+  <div class="prop-main">
+    <h2 data-split>7 mins to Forum. <span class="spike">12 to office.</span></h2>
+    <p>Three floors of solo and twin rooms a block off 80 Feet Road. Walking distance to Forum, Diamond District, and most of the cafés you'd actually want to live near. Manager onsite seven days, building Wi-Fi tested at 100 Mbps end-to-end.</p>
+
+    <h3>Pick your room.</h3>
+    <div class="room-types">
+      <div class="room-card">
+        <span class="lbl">Solo · 2 left</span>
+        <h4>Single room</h4>
+        <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">90 sqft · attached bath · queen bed · desk</div>
+        <div class="price">₹15,800<small>/mo, all-in</small></div>
+      </div>
+      <div class="room-card">
+        <span class="lbl">Twin · 1 left</span>
+        <h4>Shared room</h4>
+        <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">130 sqft · attached bath · 2 single beds · 2 desks</div>
+        <div class="price">₹14,500<small>/mo per bed, all-in</small></div>
+      </div>
+    </div>
+
+    <h3>What's in the room.</h3>
+    <div class="feat-grid">
+      <div class="feat">100 Mbps Wi-Fi · tested end-to-end</div>
+      <div class="feat">AC, heater, ceiling fan</div>
+      <div class="feat">Single or queen bed · firm mattress</div>
+      <div class="feat">Study desk · ergonomic chair</div>
+      <div class="feat">Lockable wardrobe · 6ft</div>
+      <div class="feat">Attached bathroom · geyser</div>
+      <div class="feat">Daily housekeeping</div>
+      <div class="feat">2 daily meals · 3 on weekends</div>
+      <div class="feat">Laundry twice a week</div>
+      <div class="feat">All bills · electricity, water, gas, Wi-Fi</div>
+    </div>
+
+    <h3>House rules.</h3>
+    <div class="house-rules">
+      <h4>Be loud. Be kind. Bring snacks.</h4>
+      <p style="color: var(--muted); margin-top: 12px; font-size: 14px; line-height: 1.55;">Quiet hours from 11pm — soft rule, building-by-building. Day visitors welcome, sign the register. Overnight guests for a few nights — fine, talk to the manager. Couples — we have couple-friendly twin rooms in some buildings; ask the manager. Pets are allowed (cats and dogs under 25kg) at HSR and Indiranagar properties only.</p>
+    </div>
+
+    <h3>About the property.</h3>
+    <p style="color: var(--muted); margin-top: 16px;">Standard hoplive trust signals — verified building roundel installed at the entrance, façade signage with the brand 3000K warm backlight, manager onsite all seven days, WhatsApp group for the building. Standalone 3-floor building, not a converted apartment block. Lift, generator backup, 24/7 security at the gate.</p>
+  </div>
+
+  <!-- STICKY ASIDE -->
+  <aside class="prop-aside">
+    <div>
+      <div class="price-block">
+        <span class="v">₹14,500</span>
+        <span class="q">/mo, twin</span>
+      </div>
+      <div class="all-in">All-in. No surprise charges.</div>
+    </div>
+
+    <div class="field">
+      <label>Hop-in date</label>
+      <input type="date" value="2026-05-12" />
+    </div>
+    <div class="field">
+      <label>Room type</label>
+      <select>
+        <option>Twin — ₹14,500/mo</option>
+        <option>Solo — ₹15,800/mo</option>
+      </select>
+    </div>
+
+    <a href="../book/" class="btn btn-coral" style="justify-content: center; margin-top: 4px;">Book now <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    <a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20want%20to%20schedule%20a%20visit%20to%20Koramangala" class="btn btn-ghost" style="justify-content: center;">Schedule a visit</a>
+
+    <div class="perks">
+      <div>Free cancellation until 48 hrs before hop-in</div>
+      <div>₹2,000 token only · refundable</div>
+      <div>Manager on WhatsApp · 5 min reply</div>
+    </div>
+
+    <div class="roundel">
+      <div class="r-dot"></div>
+      <div class="r-text">Verified hoplive property<br/>600mm building roundel installed</div>
+    </div>
+  </aside>
+</section>
+
+<!-- LOCATION -->
+<section class="sec">
+  <div class="sec-eyebrow">Location</div>
+  <h2 class="sec-title" data-split>Right where the <span class="spike">city happens.</span></h2>
+  <p class="lead sec-lead" style="max-width: 720px;">Walk-in directions, nearby cafés, the office commute — see the neighborhood before you book.</p>
+
+  <div class="map-wrap" style="margin-top: 36px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--hairline); aspect-ratio: 16/9; background: var(--ink);">
+    <iframe
+      src="https://maps.google.com/maps?q=Koramangala+5th+Block,+Bangalore&ll=12.9352,77.6245&z=15&hl=en-IN&output=embed"
+      title="hoplive property location on Google Maps"
+      width="100%"
+      height="100%"
+      style="border:0; display:block;"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen></iframe>
+  </div>
+
+  <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;">
+    <div style="font-size: 14px; color: var(--muted);">Koramangala 5th Block, Bangalore · 7 mins to Forum · 12 mins to office hubs</div>
+    <a href="https://www.google.com/maps/search/?api=1&query=Koramangala+5th+Block+Bangalore" target="_blank" rel="noopener" class="btn btn-ghost" style="padding: 10px 16px;">Get directions <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+  </div>
+</section>
+
+<!-- MORE FROM THE PROPERTY -->
+<section class="sec">
+  <div class="sec-eyebrow">More from the property</div>
+  <h2 class="sec-title" data-split>Common <span class="spike">spaces.</span></h2>
+
+  <div class="common-spaces">
+    <div>
+      <img src="https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/2440471/pexels-photo-2440471.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <h2 data-split>3 beds left. <span style="color: var(--ink);">Don't think.</span></h2>
+  <p>Lock with ₹2,000. Refundable till 48 hours before hop-in. No risk.</p>
+  <div class="ctas">
+    <a href="../book/" class="btn btn-paper">Book this room <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    <a href="../properties/" class="btn btn-paper-outline">See other rooms</a>
+  </div>
+</section>
+
+<svg class="foot-bounce" viewBox="0 0 2278 683" preserveAspectRatio="none" aria-hidden="true">
+  <path id="bouncy-path" d="M0-0.3C0-0.3,464,0,1139,0S2278-0.3,2278-0.3V683H0V-0.3z"/>
+</svg>
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="word" href="../" aria-label="hoplive — go to home">
+        <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+        <span class="wordmark" style="color: var(--paper)">hop<span class="live">live</span></span>
+      </a>
+      <p class="tag">Brand-grade PGs for the people building the cities they live in. A sub-brand of Housr.</p>
+    </div>
+    <div class="foot-col">
+      <h6>Discover</h6>
+      <ul>
+        <li><a href="../properties/">All properties</a></li>
+        <li><a href="../cities/">Cities</a></li>
+        <li><a href="../how/">How it works</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Hoplive</h6>
+      <ul>
+        <li><a href="../list-property/">List your property</a></li>
+        <li><a href="../book/">Book a room</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Company</h6>
+      <ul>
+        <li><a href="../">Home</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-strip">
+    <span>© 2026 hoplive · A sub-brand of Housr</span>
+    <span>WhatsApp · +91 XXXXX XXXXX · hello@hoplive.in</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20asking%20about%20hoplive%20Koramangala" class="wa-fab" aria-label="WhatsApp us">
+  <svg><use href="#ic-wa"/></svg>
+</a>
+
+<script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="../script.js"></script>
+</body>
+</html>

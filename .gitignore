@@ -1,0 +1,21 @@
+# Vercel
+.vercel/
+
+# Claude Code workspace settings
+.claude/
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Local dev artifacts
+node_modules/
+
+# Brand-confidential — do NOT publish
+Hoplive_Brand_Playbook_v1.1*.pdf

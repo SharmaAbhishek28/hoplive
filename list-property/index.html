@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FAFAF7" />
+<title>List with hoplive — partner with the brand-grade PG operator</title>
+<meta name="description" content="Operator-partner model. You bring the property, we bring the product, the residents, and the front door. ₹1–3L extra per month. ₹0 upfront. No lock-in." />
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../styles.css" />
+
+<!-- Partner-page scoped patterns: split hero, callback form card, full-bleed banner -->
+<style>
+  /* PARTNER HERO — split layout: text + form card */
+  .partner-hero{
+    padding: calc(var(--nav-h) + 56px) var(--gutter) 80px;
+    background: linear-gradient(180deg, var(--paper) 0%, #F2F1EC 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .partner-hero::before{
+    content:'';
+    position: absolute; right: -120px; top: -120px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle at center, rgba(255,63,63,.16) 0%, rgba(255,63,63,0) 70%);
+    pointer-events: none;
+  }
+  .partner-hero::after{
+    content:'';
+    position: absolute; left: -80px; bottom: -120px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle at center, rgba(31,203,139,.14) 0%, rgba(31,203,139,0) 70%);
+    pointer-events: none;
+  }
+  .partner-hero-wrap{
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+  .partner-hero h1{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: .98; letter-spacing: -0.04em;
+    max-width: 14ch;
+  }
+  .partner-hero .lead{
+    margin-top: 22px;
+    max-width: 480px;
+  }
+  .partner-promises{
+    margin-top: 32px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .partner-promise{
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 500;
+  }
+  .partner-promise::before{
+    content:''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint); flex-shrink: 0;
+  }
+  .partner-promise.coral::before{ background: var(--coral); }
+
+  /* CALLBACK FORM CARD */
+  .partner-form{
+    background: var(--paper);
+    border-radius: 24px;
+    padding: clamp(28px, 4vw, 40px);
+    box-shadow:
+      0 1px 2px rgba(14,14,16,.04),
+      0 18px 40px rgba(14,14,16,.10),
+      0 48px 96px rgba(14,14,16,.10);
+    border: 1px solid rgba(14,14,16,.06);
+  }
+  .partner-form h3{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(22px, 2.4vw, 28px);
+    letter-spacing: -0.02em;
+  }
+  .partner-form .form-lead{
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px; line-height: 1.5;
+  }
+  .partner-form .form-grid{
+    margin-top: 24px;
+    display: grid; gap: 14px;
+  }
+  .partner-form .form-row{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .partner-form label{
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .partner-form .field-label{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .partner-form input,
+  .partner-form select{
+    padding: 14px 16px;
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    font-family: var(--body); font-size: 15px; font-weight: 500;
+    color: var(--ink);
+    transition: border-color .15s, box-shadow .15s;
+    width: 100%;
+  }
+  .partner-form input:focus,
+  .partner-form select:focus{
+    outline: none;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255,63,63,.12);
+  }
+  .partner-form input::placeholder{ color: var(--muted); opacity: .6; }
+  .partner-form .submit-row{ margin-top: 4px; }
+  .partner-form button[type="submit"]{
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 999px;
+    background: var(--coral);
+    color: var(--paper);
+    font-family: var(--body); font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform .15s, background .15s, box-shadow .15s;
+    box-shadow: 0 8px 20px rgba(255,63,63,.25);
+  }
+  .partner-form button[type="submit"]:hover{
+    background: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(14,14,16,.22);
+  }
+  .partner-form .form-foot{
+    margin-top: 18px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+    color: var(--muted); text-transform: uppercase;
+    text-align: center;
+  }
+  .partner-form-confirm{
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(31,203,139,.08);
+    border: 1px solid rgba(31,203,139,.3);
+    border-radius: 12px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px;
+  }
+  .partner-form-confirm::before{
+    content:''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint); flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(31,203,139,.18);
+  }
+
+  /* FULL-BLEED BANNER */
+  .full-banner{
+    position: relative;
+    height: clamp(420px, 60vw, 640px);
+    overflow: hidden;
+  }
+  .full-banner img{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .full-banner::after{
+    content:'';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(14,14,16,.30) 0%, rgba(14,14,16,.65) 100%);
+  }
+  .full-banner .banner-content{
+    position: relative; z-index: 2;
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 var(--gutter);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .full-banner .banner-eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+    color: var(--mint);
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .full-banner .banner-eyebrow::before{
+    content:''; width: 32px; height: 1px; background: var(--mint);
+  }
+  .full-banner h2{
+    font-family: var(--display); font-weight: 900;
+    color: var(--paper);
+    font-size: clamp(36px, 6vw, 80px);
+    line-height: 1; letter-spacing: -0.035em;
+    max-width: 18ch;
+  }
+  .full-banner h2 .spike{ color: var(--coral); }
+  .full-banner p{
+    margin-top: 18px;
+    color: rgba(250,250,247,.85);
+    max-width: 540px;
+    font-size: 16px; line-height: 1.55;
+  }
+
+  /* PARTNER STATS BLOCK */
+  .partner-stats{
+    padding: clamp(60px, 8vw, 100px) var(--gutter);
+    background: var(--ink); color: var(--paper);
+  }
+  .partner-stats-head{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .partner-stats-head h2{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(32px, 4.5vw, 64px);
+    line-height: 1; letter-spacing: -0.035em;
+    max-width: 16ch;
+  }
+  .partner-stats-head h2 .accent{ color: var(--mint); }
+  .partner-stats-head p{
+    color: rgba(250,250,247,.7);
+    font-size: 16px; line-height: 1.55;
+    max-width: 460px;
+  }
+  .partner-stats-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .partner-stat{
+    border: 1px solid rgba(250,250,247,.18);
+    border-radius: 16px;
+    padding: 32px 28px;
+    transition: border-color .25s, transform .25s;
+  }
+  .partner-stat:hover{
+    border-color: var(--mint);
+    transform: translateY(-3px);
+  }
+  .partner-stat .stat-lbl{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: rgba(250,250,247,.55);
+    text-transform: uppercase;
+  }
+  .partner-stat .stat-val{
+    margin-top: 14px;
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1; letter-spacing: -0.035em;
+  }
+  .partner-stat:nth-child(1) .stat-val{ color: var(--mint); }
+  .partner-stat:nth-child(2) .stat-val{ color: var(--paper); }
+  .partner-stat:nth-child(3) .stat-val{ color: var(--coral); }
+
+  /* THREE JOBS GRID — what we run */
+  .jobs-grid{
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .job-card{
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color .25s, transform .25s;
+  }
+  .job-card:hover{ border-color: var(--ink); transform: translateY(-4px); }
+  .job-card .job-img{
+    aspect-ratio: 16/10;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .job-card .job-img img{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .job-card:hover .job-img img{ transform: scale(1.05); }
+  .job-card .job-body{ padding: 24px; }
+  .job-card .job-tag{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--coral); text-transform: uppercase;
+  }
+  .job-card .job-title{
+    margin-top: 10px;
+    font-family: var(--display); font-weight: 800;
+    font-size: 24px; letter-spacing: -0.02em;
+  }
+  .job-card .job-body p{
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px; line-height: 1.55;
+  }
+
+  /* PROPERTIES STRIP — visual moment between quote and process */
+  .props-strip{
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 12px;
+  }
+  .props-strip-frame{
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .props-strip-frame:first-child{ aspect-ratio: 16/12; }
+  .props-strip-frame img{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .props-strip-frame:hover img{ transform: scale(1.05); }
+  .props-strip-frame::after{
+    content:''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(14,14,16,0) 40%, rgba(14,14,16,.55) 100%);
+  }
+  .props-strip-frame .cap{
+    position: absolute; bottom: 16px; left: 16px;
+    z-index: 1;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--paper); text-transform: uppercase;
+  }
+  @media (max-width: 760px){
+    .props-strip{ grid-template-columns: 1fr 1fr; }
+    .props-strip-frame:first-child{ grid-column: span 2; aspect-ratio: 16/9; }
+  }
+
+  /* PROCESS STEPS — three steps with image headers + coral badges */
+  .process-grid{
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .process-step{
+    padding: 0;
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .25s, transform .25s;
+  }
+  .process-step:hover{ border-color: var(--ink); transform: translateY(-4px); }
+  .process-step-img{
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .process-step-img img{
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .process-step:hover .process-step-img img{ transform: scale(1.06); }
+  .process-step-img::after{
+    content:''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(14,14,16,0) 50%, rgba(14,14,16,.45) 100%);
+  }
+  .process-step-body{ padding: 24px 28px 28px; }
+  .process-step .step-num{
+    width: 44px; height: 44px; border-radius: 999px;
+    background: var(--coral); color: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-weight: 500; font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .process-step h4{
+    font-family: var(--display); font-weight: 800;
+    font-size: 22px; letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .process-step p{
+    color: var(--muted);
+    font-size: 14px; line-height: 1.55;
+  }
+
+  /* OPERATOR QUOTE — now image-backed with coral overlay */
+  .op-quote{
+    position: relative;
+    margin-top: 48px;
+    padding: clamp(40px, 6vw, 64px);
+    color: var(--paper);
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .op-quote-bg{
+    position: absolute; inset: 0;
+    z-index: -2;
+  }
+  .op-quote-bg img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .op-quote::before{
+    content:''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(135deg, rgba(255,63,63,.94) 0%, rgba(255,63,63,.80) 50%, rgba(255,63,63,.94) 100%);
+  }
+  .op-quote .quote-num{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(64px, 9vw, 140px);
+    line-height: 1; letter-spacing: -0.04em;
+  }
+  .op-quote .quote-text{
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.3; letter-spacing: -0.02em;
+  }
+  .op-quote .quote-attrib{
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(250,250,247,.25);
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .8;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px){
+    .partner-hero-wrap{ grid-template-columns: 1fr; }
+    .partner-stats-head{ grid-template-columns: 1fr; align-items: start; }
+    .partner-stats-grid{ grid-template-columns: 1fr; }
+    .jobs-grid{ grid-template-columns: 1fr; }
+    .process-grid{ grid-template-columns: 1fr; }
+    .op-quote{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 540px){
+    .partner-form .form-row{ grid-template-columns: 1fr; }
+    .partner-form{ padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ECLIPSE MARK + ICON SYMBOL LIBRARY -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark-primary" viewBox="-20 -20 140 140"><circle cx="50" cy="50" r="50" fill="#1FCB8B"/><circle cx="38" cy="50" r="45.5" fill="#FF3F3F"/></symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="ic-user-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="ic-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="../">
+    <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+    <span class="wordmark">hop<span class="live">live</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="../properties/">Properties</a>
+    <a href="../cities/">Cities</a>
+    <a href="../how/">How it works</a>
+    <a href="../list-property/">List with us</a>
+  </div>
+  <div class="nav-cta">
+    <div class="nav-actions">
+      <a href="../wishlist/" class="nav-icon nav-icon-wishlist" aria-label="Saved rooms">
+        <svg><use href="#ic-heart"/></svg>
+        <span class="badge" data-wishlist-count data-count="0">0</span>
+      </a>
+      <button class="nav-icon nav-icon-login" aria-label="Sign in" type="button">
+        <svg><use href="#ic-user-nav"/></svg>
+      </button>
+      <button class="nav-user-pill hidden" type="button">
+        <span class="avatar">H</span>
+        <span class="user-name">You</span>
+      </button>
+    </div>
+    <a href="../book/" class="btn btn-primary">Book a room <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+  </div>
+</nav>
+
+<div class="user-menu" id="userMenu" role="menu">
+  <div class="um-head">
+    <div class="um-name">Welcome</div>
+    <div class="um-email"></div>
+  </div>
+  <a href="../wishlist/">♡ Saved rooms</a>
+  <a href="../book/">Book a room</a>
+  <button class="um-signout" type="button">Sign out</button>
+</div>
+
+<div class="auth-modal" id="authModal" role="dialog" aria-modal="true" hidden>
+  <div class="auth-backdrop" id="authBackdrop"></div>
+  <div class="auth-card">
+    <button class="auth-close" id="authClose" aria-label="Close">×</button>
+    <h2>Welcome back.</h2>
+    <p class="auth-lead">Sign in to save rooms and pick up where you left off.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="signin" type="button">Sign in</button>
+      <button class="auth-tab" data-tab="signup" type="button">Create account</button>
+    </div>
+    <form class="auth-form" id="authForm" novalidate>
+      <label><span class="auth-label">Name</span><input type="text" name="name" placeholder="Your name" autocomplete="name" /></label>
+      <label><span class="auth-label">Email</span><input type="email" name="email" placeholder="you@example.com" required autocomplete="email" /></label>
+      <label><span class="auth-label">Password</span><input type="password" name="password" placeholder="•••••••" autocomplete="current-password" /></label>
+      <button type="submit">Sign in</button>
+    </form>
+    <div class="auth-divider">or</div>
+    <button class="auth-google" id="authGoogle" type="button">Continue with Google</button>
+    <p class="auth-foot">Frontend demo · backend wires up later.</p>
+  </div>
+</div>
+
+<!-- ===== HERO with callback form ===== -->
+<section class="partner-hero">
+  <div class="partner-hero-wrap">
+    <div>
+      <div class="sec-eyebrow">For operator-partners</div>
+      <h1 data-split>Got the building. <span class="spike">We've got the brand.</span></h1>
+      <p class="lead">Operator-partner model. You bring the property, we bring the product, the residents, and the front door. ₹1–3L extra per month. ₹0 upfront. No lock-in.</p>
+
+      <div class="partner-promises">
+        <div class="partner-promise">We fill the beds — digital + corporate demand.</div>
+        <div class="partner-promise coral">We run the back end — CRM, collections, support.</div>
+        <div class="partner-promise">We pay you more — MG floor plus share of upside.</div>
+      </div>
+    </div>
+
+    <!-- CALLBACK FORM -->
+    <div class="partner-form" id="partnerFormCard">
+      <h3>Get a callback in 24 hrs.</h3>
+      <p class="form-lead">Tell us about the property. We'll call back to walk through the partnership.</p>
+
+      <form class="form-grid" id="partnerForm" novalidate>
+        <label>
+          <span class="field-label">Your name</span>
+          <input type="text" name="name" placeholder="Saurabh Aggarwal" required autocomplete="name" />
+        </label>
+        <label>
+          <span class="field-label">WhatsApp number</span>
+          <input type="tel" name="phone" placeholder="+91 98765 43210" required autocomplete="tel" />
+        </label>
+
+        <div class="form-row">
+          <label>
+            <span class="field-label">Property city</span>
+            <select name="city" required>
+              <option value="" disabled selected>Select</option>
+              <option>Bangalore</option>
+              <option>Hyderabad</option>
+              <option>Gurgaon</option>
+              <option>Pune</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            <span class="field-label">Locality</span>
+            <input type="text" name="locality" placeholder="HSR Layout" required />
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label>
+            <span class="field-label">Total beds</span>
+            <input type="number" name="beds" placeholder="40" min="10" required />
+          </label>
+          <label>
+            <span class="field-label">Property stage</span>
+            <select name="stage" required>
+              <option value="" disabled selected>Select</option>
+              <option>Operational</option>
+              <option>Under construction</option>
+              <option>Acquiring</option>
+              <option>Planning</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit">Get a callback <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></button>
+        </div>
+
+        <div class="form-foot">No spam. Just one call. Yes or no by Friday.</div>
+      </form>
+
+      <div class="partner-form-confirm" id="partnerFormConfirm" hidden>
+        Got it. We'll WhatsApp you within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FULL-BLEED BANNER ===== -->
+<div class="full-banner">
+  <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="" loading="lazy" />
+  <div class="banner-content">
+    <span class="banner-eyebrow">Backed by Housr · 50+ years in hospitality</span>
+    <h2 data-split>₹1–3L extra. <span class="spike">Every month.</span></h2>
+    <p>On top of what you make today. That's what running with hoplive looks like — for independent PG & co-living operators in Gurgaon, Bangalore, Hyderabad, and Pune.</p>
+  </div>
+</div>
+
+<!-- ===== THE DEAL — stats on ink ===== -->
+<section class="partner-stats">
+  <div class="partner-stats-head">
+    <div>
+      <div class="sec-eyebrow" style="color: var(--mint);">The deal</div>
+      <h2 data-split>₹0 upfront. <span class="accent">No lock-in.</span></h2>
+    </div>
+    <p>MG floor plus share of the upside. A guaranteed minimum every month, plus a cut of the revenue we add on top. Bad month for you = bad month for us. Aligned from day zero.</p>
+  </div>
+
+  <div class="partner-stats-grid">
+    <div class="partner-stat">
+      <div class="stat-lbl">Occupancy you run at</div>
+      <div class="stat-val">85–95%</div>
+    </div>
+    <div class="partner-stat">
+      <div class="stat-lbl">Rent you charge</div>
+      <div class="stat-val">+20–30%</div>
+    </div>
+    <div class="partner-stat">
+      <div class="stat-lbl">Extra in your account / month</div>
+      <div class="stat-val">₹1–3L</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT WE RUN — three jobs ===== -->
+<section class="sec">
+  <div class="sec-eyebrow">What we run</div>
+  <h2 class="sec-title" data-split>Three jobs. <span class="spike">We do all three.</span></h2>
+
+  <div class="jobs-grid">
+    <div class="job-card">
+      <div class="job-img">
+        <img src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="job-body">
+        <span class="job-tag">→ Demand engine</span>
+        <h3 class="job-title">Fill the beds.</h3>
+        <p>Digital + corporate channels. Pricing intelligence on top of real-time occupancy data. Beds don't sit empty.</p>
+      </div>
+    </div>
+    <div class="job-card">
+      <div class="job-img">
+        <img src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="job-body">
+        <span class="job-tag">→ Operations</span>
+        <h3 class="job-title">Run the back end.</h3>
+        <p>CRM, ticketing, collections, tenant onboarding, refunds, the 2 a.m. WhatsApps. Every fire becomes a ticket. Every ticket gets closed.</p>
+      </div>
+    </div>
+    <div class="job-card">
+      <div class="job-img">
+        <img src="https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="job-body">
+        <span class="job-tag">→ MG + share</span>
+        <h3 class="job-title">Pay you more.</h3>
+        <p>Guaranteed minimum every month plus a cut of the revenue we add on top. Your team stays. Your name stays on the door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OPERATOR QUOTE — image-backed coral overlay ===== -->
+<section class="sec">
+  <div class="op-quote">
+    <div class="op-quote-bg">
+      <img src="https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" />
+    </div>
+    <div>
+      <div class="quote-num">65 → 92</div>
+      <div class="quote-attrib">PG operator, Bangalore · 68 beds · 2025</div>
+    </div>
+    <div>
+      <div class="quote-text">"In 4 months. The pricing play alone paid for the partnership."</div>
+    </div>
+  </div>
+
+  <!-- PROPERTIES STRIP — visual moment, real-feel documentary stock -->
+  <div class="props-strip">
+    <div class="props-strip-frame">
+      <img src="https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="" loading="lazy" />
+      <span class="cap">→ Bangalore · 80 beds</span>
+    </div>
+    <div class="props-strip-frame">
+      <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      <span class="cap">→ Hyderabad · 60 beds</span>
+    </div>
+    <div class="props-strip-frame">
+      <img src="https://images.pexels.com/photos/2029722/pexels-photo-2029722.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      <span class="cap">→ Gurgaon · 120 beds</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS — 3 steps ===== -->
+<section class="sec">
+  <div class="sec-eyebrow">The ask</div>
+  <h2 class="sec-title" data-split>30 minutes. <span class="spike">Your property. Our commitment.</span></h2>
+  <p class="lead sec-lead">We come over, walk your property, and put a real revenue-uplift number on the table — bed by bed, MG and rev-share visible, assumptions you can argue with. Then you decide.</p>
+
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-step-img">
+        <img src="https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="process-step-body">
+        <span class="step-num">01</span>
+        <h4>We come over.</h4>
+        <p>Walk your property. Honest read on what's working and what's leaking. We don't sell.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-step-img">
+        <img src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="process-step-body">
+        <span class="step-num">02</span>
+        <h4>We put a number on it.</h4>
+        <p>Bed-by-bed projection. MG number on the table. Rev-share split visible.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-step-img">
+        <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=900" alt="" loading="lazy" />
+      </div>
+      <div class="process-step-body">
+        <span class="step-num">03</span>
+        <h4>You decide.</h4>
+        <p>Walk away clean — no fee, no obligation. Or sign and we start next month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final">
+  <h2 data-split>Hop. <span style="color: var(--ink);">You're home.</span></h2>
+  <p>Gurgaon · Bangalore · Hyderabad · Pune. Outcomes vary. Representative figures.</p>
+  <div class="ctas">
+    <a href="#partnerFormCard" class="btn btn-paper">Book a walkthrough <span class="arrow"><svg width="14" height="14"><use href="#ic-arrow"/></svg></span></a>
+    <a href="mailto:partners@hoplive.in" class="btn btn-paper-outline">partners@hoplive.in</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<svg class="foot-bounce" viewBox="0 0 2278 683" preserveAspectRatio="none" aria-hidden="true">
+  <path id="bouncy-path" d="M0-0.3C0-0.3,464,0,1139,0S2278-0.3,2278-0.3V683H0V-0.3z"/>
+</svg>
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="word" href="../" aria-label="hoplive — go to home">
+        <span class="mark"><svg><use href="#mark-primary"/></svg></span>
+        <span class="wordmark" style="color: var(--paper)">hop<span class="live">live</span></span>
+      </a>
+      <p class="tag">Brand-grade PGs for the people building the cities they live in. A sub-brand of Housr.</p>
+    </div>
+    <div class="foot-col">
+      <h6>Discover</h6>
+      <ul>
+        <li><a href="../properties/">All properties</a></li>
+        <li><a href="../cities/">Cities</a></li>
+        <li><a href="../how/">How it works</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Hoplive</h6>
+      <ul>
+        <li><a href="../list-property/">List your property</a></li>
+        <li><a href="../book/">Book a room</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h6>Company</h6>
+      <ul>
+        <li><a href="../">Home</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-strip">
+    <span>© 2026 hoplive · A sub-brand of Housr</span>
+    <span>WhatsApp · +91 XXXXX XXXXX · partners@hoplive.in</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20interested%20in%20listing%20my%20property" class="wa-fab" aria-label="WhatsApp us">
+  <svg><use href="#ic-wa"/></svg>
+</a>
+
+<!-- FORM HANDLER — WhatsApp deeplink -->
+<script>
+(function () {
+  const form    = document.getElementById('partnerForm');
+  const confirm = document.getElementById('partnerFormConfirm');
+  if (!form) return;
+  const PARTNER_WA = '91XXXXXXXXXX';
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const name = (d.get('name') || '').toString().trim();
+    const phone = (d.get('phone') || '').toString().trim();
+    const city = (d.get('city') || '').toString().trim();
+    const locality = (d.get('locality') || '').toString().trim();
+    const beds = (d.get('beds') || '').toString().trim();
+    const stage = (d.get('stage') || '').toString().trim();
+    if (!name || !phone || !city || !locality || !beds || !stage){
+      form.reportValidity();
+      return;
+    }
+    const msg = `Hi Hoplive — partnership enquiry.\nName: ${name}\nPhone: ${phone}\nCity: ${city}\nLocality: ${locality}\nBeds: ${beds}\nStage: ${stage}\nSource: list-property page`;
+    const url = `https://wa.me/${PARTNER_WA}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener');
+    form.hidden = true;
+    confirm.hidden = false;
+  });
+})();
+</script>
+
+<script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="../script.js"></script>
+</body>
+</html>
