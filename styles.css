@@ -2444,3 +2444,316 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ============================================================
+   MOBILE & TABLET OPTIMIZATION — UX/UI law applications
+   ─────────────────────────────────────────────────────────
+   Fitts's Law      → 44–48 px minimum touch targets
+   Jakob's Law      → hamburger menu (universal mobile pattern)
+   Hick's Law       → fewer visible options at once on mobile
+   Doherty (<400ms) → transitions ≤ 280ms
+   Law of Proximity → tighter grouping in compact layouts
+   iOS quirk        → form inputs ≥ 16px font-size to prevent auto-zoom
+   ============================================================ */
+
+/* ── Hamburger button (JS-injected into nav on all pages) ── */
+.nav-ham{
+  display: none;
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background .15s;
+}
+.nav-ham:hover{ background: rgba(14,14,16,.06); }
+.nav-ham .bars{
+  position: relative;
+  width: 22px; height: 16px;
+  display: inline-block;
+}
+.nav-ham .bars span{
+  position: absolute; left: 0; right: 0;
+  height: 2px; border-radius: 2px;
+  background: currentColor;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), top .25s, opacity .15s;
+}
+.nav-ham .bars span:nth-child(1){ top: 0; }
+.nav-ham .bars span:nth-child(2){ top: 7px; }
+.nav-ham .bars span:nth-child(3){ top: 14px; }
+.nav-ham.open .bars span:nth-child(1){ top: 7px; transform: rotate(45deg); }
+.nav-ham.open .bars span:nth-child(2){ opacity: 0; }
+.nav-ham.open .bars span:nth-child(3){ top: 7px; transform: rotate(-45deg); }
+
+/* ── Slide-down mobile menu panel ── */
+.mob-menu{
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 80;
+  display: none;
+  pointer-events: none;
+}
+.mob-menu[hidden]{ display: none; }
+.mob-menu.open{ display: block; pointer-events: auto; }
+.mob-menu-backdrop{
+  position: absolute; inset: 0;
+  background: rgba(14,14,16,.45);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.mob-menu.open .mob-menu-backdrop{ opacity: 1; }
+.mob-menu-panel{
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: var(--paper);
+  padding: calc(var(--nav-h) + 24px) var(--gutter) 32px;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 24px 60px rgba(14,14,16,.2);
+  transform: translateY(-100%);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  max-height: 100vh;
+  overflow-y: auto;
+}
+.mob-menu.open .mob-menu-panel{ transform: translateY(0); }
+.mob-menu-links{
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.mob-menu-links a{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 8px;
+  font-family: var(--display); font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink);
+  transition: color .15s, transform .15s;
+}
+.mob-menu-links a:hover{ color: var(--coral); transform: translateX(4px); }
+.mob-menu-links a::after{
+  content: '→';
+  opacity: .4;
+  font-size: 18px;
+}
+.mob-menu-footer{
+  margin-top: 24px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mob-menu-footer .btn{ justify-content: center; }
+.mob-menu-foot-meta{
+  margin-top: 24px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--muted); text-transform: uppercase;
+  text-align: center;
+}
+
+/* ============================================================
+   TABLET (≤ 1024px) — moderate compression
+   ============================================================ */
+@media (max-width: 1024px){
+  :root{
+    --section-y: clamp(56px, 9vw, 96px);
+  }
+  .nav-links{ gap: 18px; }
+  .nav-links a{ font-size: 14px; }
+  .props-grid{ grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}
+
+/* ============================================================
+   MOBILE BREAKPOINT (≤ 900px) — hamburger, single-column,
+   larger tap targets
+   ============================================================ */
+@media (max-width: 900px){
+  /* Hide desktop nav links, show hamburger */
+  .nav-links{ display: none; }
+  .nav-ham{ display: inline-flex; }
+
+  /* Tighter nav padding, but preserve --nav-h so layout offsets remain */
+  .nav{ padding: 10px var(--gutter); }
+  .nav-brand .mark{ width: 32px; height: 32px; }
+  .nav-brand .wordmark{ font-size: 18px; }
+
+  /* Trim the inline CTA — hamburger takes over for navigation, the
+     Book button moves into the mobile menu footer. */
+  .nav-cta > .btn{ display: none; }
+
+  /* User pill name hides — only avatar shows */
+  .nav-user-pill .user-name{ display: none; }
+  .nav-user-pill{ padding: 4px; }
+
+  /* All buttons / chips bump to Fitts-friendly sizes */
+  .btn{ min-height: 48px; padding: 13px 22px; }
+  .chip{ min-height: 40px; padding: 10px 16px; font-size: 13px; }
+  .nav-icon{ width: 42px; height: 42px; }
+
+  /* Wishlist FAB heart on cards */
+  .pcard .heart{ width: 42px; height: 42px; }
+
+  /* Hide on-page search FAB while mobile menu may be active to avoid
+     overlap — search lives in hero pill on mobile anyway. */
+  .search-fab{ display: none !important; }
+
+  /* Section padding compression */
+  .sec{ padding: 64px var(--gutter); }
+  .hero{ padding: calc(var(--nav-h) + 36px) var(--gutter) 64px; min-height: auto; }
+  .partner-hero{ padding: calc(var(--nav-h) + 32px) var(--gutter) 56px; }
+  .final{ padding: clamp(56px, 12vw, 100px) var(--gutter); }
+
+  /* Property grid — already 2-col from tablet; on phones go 1-col */
+  .props-grid{ grid-template-columns: 1fr; }
+
+  /* Footer — stack columns cleanly */
+  .foot{ padding: 48px var(--gutter) 24px; }
+  .foot-grid{ grid-template-columns: 1fr 1fr; gap: 32px; }
+  .foot-brand{ grid-column: span 2; }
+  .foot-bounce{ height: clamp(60px, 10vw, 100px); }
+
+  /* Booking flow — sticky mark moves above, content below */
+  .booking-right{ padding: 20px 0; }
+  .booking-steps{ margin-top: 32px; gap: 56px; }
+}
+
+/* ============================================================
+   SMALL PHONES (≤ 540px) — full collapse, max touch friendliness
+   ============================================================ */
+@media (max-width: 540px){
+  :root{ --gutter: 18px; }
+
+  .nav{ padding: 8px var(--gutter); }
+  .nav-actions{ gap: 4px; margin-right: 4px; }
+
+  /* Stat grid drops to 2x2 */
+  .stats-grid{ grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* Forms — bigger inputs, 16px to kill iOS zoom */
+  input, select, textarea, .field input, .field select, .field textarea,
+  .partner-form input, .partner-form select,
+  .auth-form input{
+    font-size: 16px !important;
+    min-height: 48px;
+  }
+  .partner-form{ padding: 22px 18px; border-radius: 18px; }
+  .auth-card{ padding: 26px 20px; border-radius: 18px; }
+  .intent-card{ padding: 24px 18px; border-radius: 18px; }
+
+  /* Search pill — vertical stack on small phones */
+  .search-pill{
+    flex-wrap: wrap;
+    border-radius: 24px;
+    padding: 10px;
+    gap: 4px;
+    width: 100%;
+  }
+  .search-seg{
+    flex: 1 1 calc(50% - 4px);
+    border-right: none;
+    padding: 10px 14px;
+    min-width: 0;
+    border-radius: 14px;
+  }
+  .search-seg:hover, .search-seg:focus-within{ background: rgba(14,14,16,.04); }
+  .search-seg .val{ font-size: 14px; }
+  .search-go{
+    width: 100%; height: 52px;
+    border-radius: 999px;
+    margin-left: 0; margin-top: 6px;
+  }
+
+  /* Modals fill more of the screen */
+  .intent-options{ grid-template-columns: 1fr; gap: 10px; }
+  .intent-card h2{ font-size: clamp(22px, 6vw, 30px); }
+  .auth-card h2{ font-size: clamp(22px, 6vw, 28px); }
+  .auth-tabs{ width: 100%; }
+  .auth-tab{ flex: 1; text-align: center; }
+
+  /* Filter chips — scrollable horizontal strip on properties page */
+  .filter-row{
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .filter-row::-webkit-scrollbar{ display: none; }
+  .filter-row .chip{ flex-shrink: 0; }
+
+  /* Property cards on home — also horizontally scrollable strip */
+  .props-row{
+    grid-auto-columns: 80%;
+    gap: 12px;
+  }
+
+  /* Footer — full single column on small phones */
+  .foot-grid{ grid-template-columns: 1fr; gap: 24px; }
+  .foot-brand{ grid-column: span 1; }
+  .foot-strip{ flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 24px; padding-top: 18px; }
+
+  /* WhatsApp FAB position — out of the way of bottom thumb reach */
+  .wa-fab{ width: 52px; height: 52px; bottom: 16px; left: 16px; }
+  .wa-fab svg{ width: 24px; height: 24px; }
+
+  /* User menu — full-width sheet on small phones */
+  .user-menu{
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    min-width: 0;
+  }
+
+  /* Hero polaroids scatter goes more vertical */
+  .scatter{ height: 280px; margin-top: 24px; }
+  .scatter .polaroid{ box-shadow: 0 8px 20px rgba(14,14,16,.10), 0 24px 48px rgba(14,14,16,.10); }
+
+  /* Bento heading sizes */
+  .bento{ grid-auto-rows: 140px; }
+
+  /* Mobile menu link size scaled down */
+  .mob-menu-links a{ font-size: 20px; padding: 14px 8px; }
+}
+
+/* ============================================================
+   EXTRA SMALL (≤ 380px) — iPhone SE / very narrow
+   ============================================================ */
+@media (max-width: 380px){
+  :root{ --gutter: 14px; }
+  .nav-brand .wordmark{ font-size: 17px; }
+  .nav-icon{ width: 38px; height: 38px; }
+  .nav-icon svg{ width: 16px; height: 16px; }
+
+  /* Stat grid — single column on smallest */
+  .stats-grid{ grid-template-columns: 1fr; }
+
+  /* Buttons full-width in groups */
+  .ctas{ flex-direction: column; width: 100%; }
+  .ctas .btn{ width: 100%; }
+
+  /* Hero sub spacing */
+  .hero-sub{ margin-top: 18px; }
+  .hero-eyebrow{ font-size: 10px; }
+
+  /* Make Search FAB a true bottom-thumb action — keep FAB-style icon-only */
+  .partner-stats-grid{ grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   FOCUS STATES — accessibility on touch + keyboard
+   ============================================================ */
+@media (hover: none) and (pointer: coarse){
+  /* On touch devices hover states are sticky — disable lift effects
+     so cards don't appear stuck after tap. */
+  .pcard:hover{ transform: none; }
+  .conv-card:hover, .b2b-stat:hover, .room-card:hover, .city:hover,
+  .job-card:hover, .process-step:hover, .next-card:hover{ transform: none; }
+}
+*:focus-visible{
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.btn:focus-visible, .chip:focus-visible, .nav-icon:focus-visible,
+.heart:focus-visible{ outline-offset: 4px; }

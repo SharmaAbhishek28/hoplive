@@ -324,6 +324,76 @@
   }
 
   /* ============================================================
+     MOBILE NAV — hamburger button + slide-down menu panel
+     Auto-injected into every page's nav. Cloned from existing
+     nav-links so paths stay correct per page. Jakob's Law: this
+     is the universal mobile pattern users expect.
+     ============================================================ */
+  (function setupMobileNav(){
+    const navEl = document.getElementById('nav');
+    if (!navEl || navEl.dataset.mobileBound) return;
+    navEl.dataset.mobileBound = '1';
+    const navLinks = navEl.querySelector('.nav-links');
+    const navCta = navEl.querySelector('.nav-cta');
+    if (!navLinks || !navCta) return;
+
+    // Build hamburger
+    const ham = document.createElement('button');
+    ham.type = 'button';
+    ham.className = 'nav-ham';
+    ham.setAttribute('aria-label', 'Open menu');
+    ham.setAttribute('aria-expanded', 'false');
+    ham.innerHTML = '<span class="bars"><span></span><span></span><span></span></span>';
+    navCta.appendChild(ham);
+
+    // Find the "Book a room" CTA href on this page so the menu CTA matches
+    const ctaBtn = navEl.querySelector('.nav-cta > .btn');
+    const ctaHref = ctaBtn ? ctaBtn.getAttribute('href') : '../book/';
+
+    // Build the slide-down menu panel
+    const menu = document.createElement('div');
+    menu.className = 'mob-menu';
+    menu.setAttribute('aria-hidden', 'true');
+    menu.innerHTML = `
+      <div class="mob-menu-backdrop"></div>
+      <div class="mob-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+        <nav class="mob-menu-links">${navLinks.innerHTML}</nav>
+        <div class="mob-menu-footer">
+          <a href="${ctaHref}" class="btn btn-coral">Book a room <span class="arrow">→</span></a>
+        </div>
+        <div class="mob-menu-foot-meta">hop in · you're home</div>
+      </div>`;
+    document.body.appendChild(menu);
+
+    const backdrop = menu.querySelector('.mob-menu-backdrop');
+    const openMenu = () => {
+      menu.classList.add('open');
+      ham.classList.add('open');
+      ham.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeMenu = () => {
+      menu.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+    ham.addEventListener('click', () => {
+      if (menu.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    backdrop.addEventListener('click', closeMenu);
+    // Any link click closes the menu (lets navigation proceed)
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+      setTimeout(closeMenu, 50);
+    }));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+    });
+  })();
+
+  /* ============================================================
      NAV SHRINK + SEARCH FAB SHOW after hero
      ============================================================ */
   const nav = document.getElementById('nav');
