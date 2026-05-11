@@ -885,7 +885,11 @@
     burger.setAttribute('aria-label', 'Open menu');
     burger.setAttribute('aria-expanded', 'false');
     burger.innerHTML = '<span></span><span></span><span></span>';
-    nav.insertBefore(burger, nav.firstChild);
+    // Place the burger on the RIGHT — inside nav-cta after the icon buttons.
+    // Falls back to end-of-nav if nav-cta isn't there for any reason.
+    const navCta = nav.querySelector('.nav-cta');
+    if (navCta) navCta.appendChild(burger);
+    else nav.appendChild(burger);
 
     const drawer = document.createElement('div');
     drawer.className = 'nav-drawer';

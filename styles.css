@@ -28,7 +28,14 @@
    RESET + BASE
    ============================================================ */
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
-html{ -webkit-text-size-adjust:100%; text-rendering:optimizeLegibility; }
+html{
+  -webkit-text-size-adjust:100%;
+  text-rendering:optimizeLegibility;
+  overflow-x: hidden;
+  /* Some Android browsers ignore overflow-x:hidden on body alone if html
+     itself is allowed to scroll. Locking both kills any stray sideways drift
+     from rotated polaroids, negative-margined scroll strips, etc. */
+}
 body{
   background: var(--paper);
   color: var(--ink);
@@ -39,6 +46,7 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100vw;
 }
 img,svg{ display:block; max-width:100%; }
 button{ font: inherit; cursor:pointer; border:none; background:none; color:inherit; }
@@ -1710,7 +1718,19 @@ html.lenis,html.lenis body{height:auto}
 .nav-burger.is-active span:nth-child(2){ opacity: 0; }
 .nav-burger.is-active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 @media (max-width: 900px){
-  .nav-burger{ display: inline-flex; order: -1; margin-right: 6px; }
+  /* Layout on mobile:
+       [ logo ─── flex-grow gap ─── [ heart ] [ user ] [ ☰ ] ]
+     - Logo anchored hard to the left
+     - Burger forced to last position inside .nav-cta via order
+     - .nav-cta hugs the right edge */
+  .nav-brand{ margin-right: auto; }
+  .nav-cta{ margin-left: auto; }
+  .nav-burger{
+    display: inline-flex;
+    order: 99;
+    margin-left: 4px;
+    margin-right: 0;
+  }
 }
 
 .nav-drawer{
@@ -2735,6 +2755,21 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
    - Cities grid goes horizontal scroll with peek + snap
    ============================================================ */
 @media (max-width: 760px){
+  /* Containment: any section with a horizontal-scroll strip (.props-row,
+     .booking-steps, .cities-grid) extends past its parent via negative
+     gutter margins. Clip at the section level so that bleed never reaches
+     the body and causes a sideways page scroll. overflow: clip keeps
+     position: sticky inside .booking working (overflow: hidden would not). */
+  .booking,
+  .sec#properties,
+  .sec#cities{
+    overflow-x: clip;
+  }
+  /* Fallback for browsers without overflow: clip */
+  @supports not (overflow: clip){
+    .booking, .sec#properties, .sec#cities{ overflow-x: hidden; }
+  }
+
   /* HERO — flow with scatter first */
   .hero{
     flex-direction: column;
