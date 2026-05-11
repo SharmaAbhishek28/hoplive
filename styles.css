@@ -2850,7 +2850,11 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
     padding: 4px 8px;
     bottom: 12px;
     left: -8px;
+    z-index: 20;
   }
+  /* Same for the conv-section floating pills so they sit on top of any
+     rotated frame overlay on mobile. */
+  .collage .floater{ z-index: 20; }
   /* Force p4 visible — it's hidden by default for narrow desktop layouts */
   .p4{ display: block !important; }
 
