@@ -1603,31 +1603,53 @@ html.lenis,html.lenis body{height:auto}
 .foot{
   background: var(--ink); color: var(--paper);
   padding: 40px var(--gutter) 32px;
+  text-align: center;
 }
 .foot-grid{
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 40px;
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.foot-brand .word{ display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; transition: opacity .18s ease; }
+.foot-brand{ display: flex; flex-direction: column; align-items: center; }
+.foot-brand .word{
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 18px;
+  transition: opacity .18s ease;
+}
 .foot-brand a.word:hover{ opacity: .8; }
 .foot-brand .word .mark{ width: 40px; height: 40px; }
 .foot-brand .tag{
   color: rgba(250,250,247,.6);
   font-size: 14px; max-width: 320px;
+  margin: 0 auto;
 }
+.foot-col{ text-align: center; }
 .foot-col h6{
   font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
   text-transform: uppercase;
   color: rgba(250,250,247,.5);
   margin-bottom: 18px;
 }
-.foot-col ul{ list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.foot-col ul{
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
 .foot-col a{ font-size: 14px; }
 .foot-col a:hover{ color: var(--coral); }
 .foot-strip{
   margin-top: 60px; padding-top: 24px;
   border-top: 1px solid rgba(250,250,247,.12);
-  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 .foot-strip span{
   font-family: var(--mono); font-size: 11px;
@@ -1638,6 +1660,7 @@ html.lenis,html.lenis body{height:auto}
 @media (max-width: 760px){
   .foot-grid{ grid-template-columns: 1fr 1fr; }
   .foot-brand{ grid-column: span 2; }
+  .foot-strip{ flex-direction: column; justify-content: center; align-items: center; }
 }
 
 /* ============================================================
@@ -2721,7 +2744,7 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   /* Footer — full single column on small phones */
   .foot-grid{ grid-template-columns: 1fr; gap: 24px; }
   .foot-brand{ grid-column: span 1; }
-  .foot-strip{ flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 24px; padding-top: 18px; }
+  .foot-strip{ flex-direction: column; align-items: center; justify-content: center; gap: 8px; margin-top: 24px; padding-top: 18px; text-align: center; }
 
   /* WhatsApp FAB position — out of the way of bottom thumb reach */
   .wa-fab{ width: 52px; height: 52px; bottom: 16px; left: 16px; }
