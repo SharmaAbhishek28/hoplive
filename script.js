@@ -216,35 +216,60 @@
         });
       });
 
-      // Booking flow — eclipse mark progresses through 4 states tied to scroll.
+      // Booking flow — eclipse mark progresses through 4 states.
       // Coral cx values: opening 28 → primary 38 → aligned 50 → closing 62.
-      // Coral disc traverses left to right across the mint disc as the user
-      // moves through the booking flow — eclipse moving across.
+      // Desktop: tied to vertical page scroll across the .booking section.
+      // Mobile: tied to horizontal scroll of the .booking-steps card strip.
       const bookingCoral = document.getElementById('bookingCoral');
       const stateLabel = document.getElementById('bookingStateLabel');
       const stateNames = ['opening · browse', 'primary · pick', 'aligned · lock', 'closing · hop in'];
       const cxStops = [28, 38, 50, 62];
       const rStops = [45.5, 45.5, 45.5, 45.5];
 
-      ScrollTrigger.create({
-        trigger: '.booking',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const phase = Math.min(3, Math.floor(p * 4));
-          const localT = (p * 4) - phase;
-          const next = Math.min(3, phase + 1);
-          const cx = cxStops[phase] + (cxStops[next] - cxStops[phase]) * localT;
-          const r = rStops[phase] + (rStops[next] - rStops[phase]) * localT;
-          if (bookingCoral){
-            bookingCoral.setAttribute('cx', cx.toFixed(2));
-            bookingCoral.setAttribute('r', r.toFixed(2));
-          }
-          if (stateLabel){ stateLabel.textContent = stateNames[phase]; }
+      function applyMarkProgress(p){
+        p = Math.max(0, Math.min(1, p));
+        const phase = Math.min(3, Math.floor(p * 4));
+        const localT = (p * 4) - phase;
+        const next = Math.min(3, phase + 1);
+        const cx = cxStops[phase] + (cxStops[next] - cxStops[phase]) * localT;
+        const r = rStops[phase] + (rStops[next] - rStops[phase]) * localT;
+        if (bookingCoral){
+          bookingCoral.setAttribute('cx', cx.toFixed(2));
+          bookingCoral.setAttribute('r', r.toFixed(2));
         }
-      });
+        if (stateLabel){ stateLabel.textContent = stateNames[phase]; }
+      }
+
+      const isMobileBooking = window.matchMedia('(max-width: 760px)').matches;
+
+      if (isMobileBooking){
+        // Mobile: hook horizontal scroll of the cards strip
+        const stepsStrip = document.querySelector('.booking-steps');
+        if (stepsStrip){
+          let rafId = 0;
+          const onScroll = () => {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+              rafId = 0;
+              const max = stepsStrip.scrollWidth - stepsStrip.clientWidth;
+              const p = max > 0 ? stepsStrip.scrollLeft / max : 0;
+              applyMarkProgress(p);
+            });
+          };
+          stepsStrip.addEventListener('scroll', onScroll, { passive: true });
+          // Initial state
+          applyMarkProgress(0);
+        }
+      } else {
+        // Desktop: vertical-scrub trigger (original behaviour)
+        ScrollTrigger.create({
+          trigger: '.booking',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1,
+          onUpdate: (self) => applyMarkProgress(self.progress)
+        });
+      }
 
       // Bento + cards subtle reveal on scroll (per element)
       gsap.utils.toArray('.tile, .pcard, .conv-card, .b2b-stat, .city, .next-card, .room-card, .common-spaces > div').forEach((el) => {

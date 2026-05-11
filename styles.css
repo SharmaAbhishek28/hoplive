@@ -2640,28 +2640,39 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   .auth-card{ padding: 26px 20px; border-radius: 18px; }
   .intent-card{ padding: 24px 18px; border-radius: 18px; }
 
-  /* Search pill — vertical stack on small phones */
+  /* SEARCH PILL — single-row layout: Where + Who + Budget + button.
+     Labels hidden, only icon + value. Fits a 320px viewport. */
   .search-pill{
-    flex-wrap: wrap;
-    border-radius: 24px;
-    padding: 10px;
-    gap: 4px;
     width: 100%;
+    flex-wrap: nowrap;
+    padding: 6px;
+    gap: 0;
+    border-radius: 999px;
   }
   .search-seg{
-    flex: 1 1 calc(50% - 4px);
-    border-right: none;
-    padding: 10px 14px;
+    flex: 1 1 0;
     min-width: 0;
-    border-radius: 14px;
+    padding: 8px 8px;
+    border-right: 1px solid var(--hairline);
+    border-radius: 0;
   }
-  .search-seg:hover, .search-seg:focus-within{ background: rgba(14,14,16,.04); }
-  .search-seg .val{ font-size: 14px; }
+  .search-seg:last-of-type{ border-right: none; }
+  .search-seg .lbl{ display: none; }
+  .search-seg .val{
+    font-size: 12px;
+    font-weight: 700;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .search-seg .ico{ width: 12px; height: 12px; flex-shrink: 0; }
   .search-go{
-    width: 100%; height: 52px;
-    border-radius: 999px;
-    margin-left: 0; margin-top: 6px;
+    width: 42px; height: 42px;
+    margin-left: 6px;
+    flex-shrink: 0;
   }
+  .search-go svg{ width: 16px; height: 16px; }
 
   /* Modals fill more of the screen */
   .intent-options{ grid-template-columns: 1fr; gap: 10px; }
@@ -2670,18 +2681,18 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   .auth-tabs{ width: 100%; }
   .auth-tab{ flex: 1; text-align: center; }
 
-  /* Filter chips — scrollable horizontal strip on properties page */
+  /* FILTER CHIPS — wrap instead of scroll. User explicitly wants all
+     chips visible at once on mobile (no horizontal scroll). */
   .filter-row{
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    overflow-x: visible;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 0;
   }
-  .filter-row::-webkit-scrollbar{ display: none; }
   .filter-row .chip{ flex-shrink: 0; }
+  .filters{ flex-wrap: wrap; gap: 8px; }
 
-  /* Property cards on home — also horizontally scrollable strip */
+  /* Property cards on home — horizontal scroll strip with snap (kept) */
   .props-row{
     grid-auto-columns: 80%;
     gap: 12px;
@@ -2714,6 +2725,118 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
 
   /* Mobile menu link size scaled down */
   .mob-menu-links a{ font-size: 20px; padding: 14px 8px; }
+}
+
+/* ============================================================
+   MOBILE LAYOUT REBUILDS (≤ 760px) — sections re-arranged per
+   product UX direction:
+   - Hero scatter sits ABOVE text, 2x2 grid, all 4 polaroids visible
+   - Booking-steps cards go horizontal scroll with peek + snap
+   - Cities grid goes horizontal scroll with peek + snap
+   ============================================================ */
+@media (max-width: 760px){
+  /* HERO — flow with scatter first */
+  .hero{
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: calc(var(--nav-h) + 20px);
+  }
+  .hero-eyebrow{ order: 2; margin-top: 28px; margin-bottom: 16px; }
+  .hero-headline{ order: 3; max-width: 100%; padding-right: 0; }
+  .hero-sub{ order: 4; }
+  .search-pill{ order: 5; }
+  .scatter{
+    order: 1;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+    height: auto;
+    inset: auto;
+    pointer-events: auto;
+    width: 100%;
+    aspect-ratio: 1/1;
+    max-height: 56vh;
+  }
+  /* Make all polaroids behave as grid cells, ignoring absolute positions */
+  .scatter .polaroid{
+    position: relative !important;
+    width: 100% !important;
+    height: 100%;
+    top: auto !important; right: auto !important;
+    bottom: auto !important; left: auto !important;
+    transform: rotate(calc(var(--rot, 0deg) * 0.5)) !important;
+    padding: 8px 8px 24px;
+  }
+  .scatter .polaroid .ph{ aspect-ratio: 4/5; height: auto; }
+  /* Force p4 visible — it's hidden by default for narrow desktop layouts */
+  .p4{ display: block !important; }
+
+  /* BOOKING STEPS — horizontal scroll-snap strip on mobile.
+     Steps drive the eclipse mark via JS listening to scroll position. */
+  .booking-wrap{
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .booking-right{
+    position: sticky;
+    top: var(--nav-h);
+    background: var(--paper);
+    padding: 12px 0 4px;
+    z-index: 5;
+    order: -1;
+  }
+  .booking-mark{ width: clamp(140px, 40vw, 200px); }
+  .booking-steps{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    margin: 24px calc(-1 * var(--gutter)) 0;
+    padding: 4px var(--gutter);
+    /* Right padding ensures last card can snap to start without empty space cut */
+    padding-right: 25%;
+  }
+  .booking-steps::-webkit-scrollbar{ display: none; }
+  .bstep{
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(14,14,16,.04);
+  }
+  .bstep h3{ font-size: clamp(22px, 5vw, 28px); }
+  .bstep p{ font-size: 14px; line-height: 1.5; }
+  .booking-cta{ margin-top: 32px; align-self: flex-start; }
+
+  /* CITIES GRID — horizontal scroll-snap strip */
+  .cities-grid{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter);
+    padding-right: 30%;
+  }
+  .cities-grid::-webkit-scrollbar{ display: none; }
+  .cities-grid .city{
+    flex: 0 0 75%;
+    scroll-snap-align: start;
+    aspect-ratio: 3/4;
+  }
 }
 
 /* ============================================================
