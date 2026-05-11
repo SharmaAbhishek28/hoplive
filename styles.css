@@ -374,6 +374,7 @@ html.lenis,html.lenis body{height:auto}
 }
 .polaroid .tag{
   position: absolute; left: -14px; bottom: 22px;
+  z-index: 3;
   background: var(--coral); color: var(--paper);
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
   padding: 7px 12px; border-radius: 4px;
