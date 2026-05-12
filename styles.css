@@ -1585,8 +1585,40 @@ html.lenis,html.lenis body{height:auto}
 }
 .intent-opt:hover .intent-opt-arrow{ gap: 12px; }
 @media (max-width: 640px){
-  .intent-options{ grid-template-columns: 1fr; }
-  .intent-opt-img{ aspect-ratio: 16/8; }
+  /* Significant compaction on mobile so the popup occupies ~45–55% of
+     viewport height and never clips against iPhone safe areas. */
+  .intent-modal{ padding: 14px; }
+  .intent-card{
+    padding: 18px 16px 20px;
+    max-width: 92vw;
+    border-radius: 16px;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+  .intent-close{
+    width: 30px; height: 30px;
+    top: 10px; right: 10px;
+    font-size: 18px;
+  }
+  .intent-card .sec-eyebrow{ margin-bottom: 8px; font-size: 10px; }
+  .intent-card .sec-eyebrow::before{ width: 18px; }
+  .intent-card h2{
+    font-size: clamp(18px, 4.8vw, 22px);
+    line-height: 1.05;
+    max-width: 18ch;
+  }
+  .intent-options{
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  /* Slim banner-style thumbnails so the options stay short */
+  .intent-opt-img{ aspect-ratio: 16/5; }
+  .intent-opt-body{ padding: 10px 14px 12px; gap: 2px; }
+  .intent-opt-body h3{ font-size: 15px; }
+  .intent-opt-body p{ font-size: 11.5px; line-height: 1.35; }
+  .intent-opt-tag{ font-size: 9px; padding: 3px 7px; top: 8px; left: 8px; }
+  .intent-opt-arrow{ font-size: 10px; margin-top: 2px; }
 }
 
 /* ============================================================
@@ -2682,7 +2714,9 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   }
   .partner-form{ padding: 22px 18px; border-radius: 18px; }
   .auth-card{ padding: 26px 20px; border-radius: 18px; }
-  .intent-card{ padding: 24px 18px; border-radius: 18px; }
+  /* intent-card sizing is handled by the @media (max-width: 640px) block —
+     keeping it out of here so the compact mobile popup styles don't get
+     overridden by this later cascade. */
 
   /* SEARCH PILL — single-row layout: Where + Who + Budget + button.
      Labels hidden, only icon + value. Fits a 320px viewport. */
@@ -2718,9 +2752,8 @@ body.nav-locked{ overflow: hidden; touch-action: none; }
   }
   .search-go svg{ width: 16px; height: 16px; }
 
-  /* Modals fill more of the screen */
-  .intent-options{ grid-template-columns: 1fr; gap: 10px; }
-  .intent-card h2{ font-size: clamp(22px, 6vw, 30px); }
+  /* Auth modal sizing on small phones (intent modal is handled by the
+     compact ≤640px block earlier in the file). */
   .auth-card h2{ font-size: clamp(22px, 6vw, 28px); }
   .auth-tabs{ width: 100%; }
   .auth-tab{ flex: 1; text-align: center; }
